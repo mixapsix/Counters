@@ -9,7 +9,6 @@ namespace Counters
 {
     public class Counter
     {
-        [Required]
         public int ID { get; set; }
         public int Value { get; set; }
     }
