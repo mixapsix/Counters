@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Counters.Migrations
 {
     [DbContext(typeof(CountersContext))]
-    [Migration("20200122190701_firstMigration")]
-    partial class firstMigration
+    [Migration("20200124174524_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
