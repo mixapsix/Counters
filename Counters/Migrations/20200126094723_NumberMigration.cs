@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Counters.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class NumberMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,13 +11,14 @@ namespace Counters.Migrations
                 name: "Counters",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    Number = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ID = table.Column<int>(nullable: false),
                     Value = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Counters", x => x.ID);
+                    table.PrimaryKey("PK_Counters", x => x.Number);
                 });
         }
 

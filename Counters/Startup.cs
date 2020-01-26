@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Counters.Services;
 
 namespace Counters
 {
@@ -25,11 +27,12 @@ namespace Counters
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddEntityFrameworkNpgsql().AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
+            services.AddTransient<IDataBase, DataBaseService>();
+            //services.AddEntityFrameworkNpgsql().AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase)
         {
             if (env.IsDevelopment())
             {
@@ -41,18 +44,25 @@ namespace Counters
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            dataBase.DropTable();
+            dataBase.WriteData();
+            var db = dataBase.GetCounters();
+            app.Run(async (context) =>
             {
-                endpoints.MapRazorPages();
+                await context.Response.WriteAsync("Hello World");
             });
+            
+            //app.UseHttpsRedirection();
+            //app.UseStaticFiles();
+
+            //app.UseRouting();
+
+            //app.UseAuthorization();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapRazorPages();
+            //});
         }
     }
 }

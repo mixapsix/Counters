@@ -20,15 +20,18 @@ namespace Counters.Migrations
 
             modelBuilder.Entity("Counters.Counter", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Number")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("ID")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Value")
                         .HasColumnType("integer");
 
-                    b.HasKey("ID");
+                    b.HasKey("Number");
 
                     b.ToTable("Counters");
                 });

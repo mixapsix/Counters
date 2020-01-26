@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Counters.Migrations
 {
     [DbContext(typeof(CountersContext))]
-    [Migration("20200124174524_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20200126094723_NumberMigration")]
+    partial class NumberMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,15 +22,18 @@ namespace Counters.Migrations
 
             modelBuilder.Entity("Counters.Counter", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Number")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("ID")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Value")
                         .HasColumnType("integer");
 
-                    b.HasKey("ID");
+                    b.HasKey("Number");
 
                     b.ToTable("Counters");
                 });
