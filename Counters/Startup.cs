@@ -27,6 +27,7 @@ namespace Counters
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddTransient<CountersContext>();
             services.AddTransient<IDataBase, DataBaseService>();
             //services.AddEntityFrameworkNpgsql().AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
         }
@@ -46,10 +47,13 @@ namespace Counters
             }
             dataBase.DropTable();
             dataBase.WriteData();
-            var db = dataBase.GetCounters();
+            var db = dataBase.GetCounters().ToList<Counter>();
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World");
+                foreach (var item in db)
+                {
+                    await context.Response.WriteAsync(item.ID + " " + item.Value +"\n");
+                }
             });
             
             //app.UseHttpsRedirection();
