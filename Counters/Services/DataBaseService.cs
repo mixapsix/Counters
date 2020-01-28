@@ -33,7 +33,7 @@ namespace Counters.Services
         public IQueryable<Counter> GetCounters()
         {
             var selectedCounters = from counter in countersContext.Counters
-                                    select counter;
+                                   select counter;
             return selectedCounters;    
         }
         public void DropTable()

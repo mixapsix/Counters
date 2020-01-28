@@ -13,13 +13,10 @@ namespace Counters
         {
                 
         }
-        public CountersContext()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Database.EnsureCreated();
+            modelBuilder.Entity<Counter>().HasKey(c => new { c.Number });
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql("Host=localhost; Port=5432; Database=postgres; Username=postgres; Password=Mixa4343");
-        }
+
     }
 }

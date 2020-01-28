@@ -27,14 +27,14 @@ namespace Counters
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddTransient<CountersContext>();
             services.AddTransient<IDataBase, DataBaseService>();
-            //services.AddEntityFrameworkNpgsql().AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
+            services.AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase, CountersContext countersContext)
         {
+            //countersContext.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,19 +54,7 @@ namespace Counters
                 {
                     await context.Response.WriteAsync(item.ID + " " + item.Value +"\n");
                 }
-            });
-            
-            //app.UseHttpsRedirection();
-            //app.UseStaticFiles();
-
-            //app.UseRouting();
-
-            //app.UseAuthorization();
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapRazorPages();
-            //});
+            });             
         }
     }
 }
