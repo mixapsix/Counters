@@ -33,26 +33,25 @@ namespace Counters
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase, CountersContext countersContext)
-        {
-            //countersContext.Database.Migrate();
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+        {          
             dataBase.DropTable();
             dataBase.WriteData();
             var db = dataBase.GetCounters().ToList<Counter>();
+            var sel = dataBase.GetIDs();
+
             app.Run(async (context) =>
             {
                 foreach (var item in db)
                 {
                     await context.Response.WriteAsync(item.ID + " " + item.Value +"\n");
+                }
+
+                foreach(var line in sel)
+                {
+                    foreach (var item in line)
+                    {
+                        await context.Response.WriteAsync(item.Number + " " + item.ID + " " + item.Value + "\n");
+                    }
                 }
             });             
         }

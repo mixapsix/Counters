@@ -15,7 +15,18 @@ namespace Counters
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Counter>().HasKey(c => new { c.Number });
+            List<Counter> counters = new List<Counter>() 
+            {
+                new Counter() { ID = 1, Value = 1, Number = 1 },
+                new Counter() { ID = 1, Value = 2, Number = 2 },
+                new Counter() { ID = 1, Value = 3, Number = 3 },
+                new Counter() { ID = 2, Value = 1, Number = 4 },
+                new Counter() { ID = 2, Value = 1, Number = 5 },
+                new Counter() { ID = 2, Value = 3, Number = 6 },
+                new Counter() { ID = 2, Value = 1, Number = 7 }
+            };
+
+            modelBuilder.Entity<Counter>().HasData(counters);
         }
 
     }
