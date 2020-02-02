@@ -18,5 +18,19 @@ namespace Counters.Controllers
         {
             return View(baseService.GetCounters().ToList());
         }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(Counter counter)
+        {
+            baseService.InsertDataAsync(counter);
+            baseService.CountersContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

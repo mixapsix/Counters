@@ -7,6 +7,7 @@ namespace Counters.Services
 {
     public interface IDataBase
     {
+        CountersContext CountersContext { get; set; }
         Task InsertDataAsync (Counter data);
         void Initialize();
         IQueryable<Counter> GetCounters();

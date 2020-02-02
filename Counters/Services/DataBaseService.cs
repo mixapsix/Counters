@@ -8,16 +8,16 @@ namespace Counters.Services
 {
     public class DataBaseService : IDataBase
     {
-        CountersContext countersContext;
+        public CountersContext CountersContext { get; set; }
 
         public DataBaseService(CountersContext countersContext)
         {
-            this.countersContext = countersContext;
+            this.CountersContext = countersContext;
         }
 
         public void Initialize()
         {
-            if (!countersContext.Counters.Any())
+            if (!CountersContext.Counters.Any())
             {
                 List<Counter> counters = new List<Counter>()
                 {
@@ -30,32 +30,32 @@ namespace Counters.Services
                     new Counter() { ID = 2, Value = 1, Number = 7 }
                 };
                 counters.ForEach(async x => await InsertDataAsync(x));
-                countersContext.SaveChanges();
+                CountersContext.SaveChanges();
             }
         }
 
         public async Task InsertDataAsync(Counter data)
         {
-            await countersContext.AddAsync<Counter>(data);
+            await CountersContext.AddAsync<Counter>(data);
         }
 
         public IQueryable<Counter> GetCounters()
         {
-            var selectedCounters = from counter in countersContext.Counters
+            var selectedCounters = from counter in CountersContext.Counters
                                    select counter;
             return selectedCounters;    
         }
 
         public IQueryable<IGrouping<int, Counter>> GetIDs()
         {
-            var selectedCounters = from counter in countersContext.Counters
+            var selectedCounters = from counter in CountersContext.Counters
                                    group counter by counter.ID;
             return selectedCounters;
         }
         public void DropTable()
         {
-            countersContext.Counters.RemoveRange(countersContext.Counters.ToList());
-            countersContext.SaveChanges();
+            CountersContext.Counters.RemoveRange(CountersContext.Counters.ToList());
+            CountersContext.SaveChanges();
         }
 
 
