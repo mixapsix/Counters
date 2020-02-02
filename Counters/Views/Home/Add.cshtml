@@ -19,9 +19,10 @@
     <h3>Форма добавления в таблицу</h3>
     <p>Заполните все поля</p>
     <form method="post">
-        <input type="number" min="1" placeholder="ID" name="ID" required/>
-        <input type="number" min="1" placeholder="Value" name="Value" required/>
-        <input type="submit" value="Добавить"/>
+        <input type="number" hidden value="@ViewBag.Number" name="Number" />
+        <input type="number" min="1" placeholder="ID" name="ID" required />
+        <input type="number" min="1" placeholder="Value" name="Value" required />
+        <input type="submit" value="Добавить" />
     </form>
 </body>
 </html>

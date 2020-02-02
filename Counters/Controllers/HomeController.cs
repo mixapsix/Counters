@@ -22,12 +22,13 @@ namespace Counters.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            ViewBag.Number = baseService.CountersContext.Counters.Count() + 1;
             return View();
         }
 
         [HttpPost]
         public IActionResult Add(Counter counter)
-        {
+        {            
             baseService.InsertDataAsync(counter);
             baseService.CountersContext.SaveChanges();
             return RedirectToAction("Index");
