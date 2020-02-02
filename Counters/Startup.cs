@@ -27,6 +27,7 @@ namespace Counters
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddControllersWithViews();
             services.AddTransient<IDataBase, DataBaseService>();
             services.AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
         }
@@ -35,25 +36,15 @@ namespace Counters
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase, CountersContext countersContext)
         {          
             dataBase.DropTable();
-            dataBase.WriteData();
-            var db = dataBase.GetCounters().ToList<Counter>();
-            var sel = dataBase.GetIDs();
+            dataBase.Initialize();
+            app.UseRouting();
 
-            app.Run(async (context) =>
+            app.UseEndpoints(endpoints =>
             {
-                foreach (var item in db)
-                {
-                    await context.Response.WriteAsync(item.ID + " " + item.Value +"\n");
-                }
-
-                foreach(var line in sel)
-                {
-                    foreach (var item in line)
-                    {
-                        await context.Response.WriteAsync(item.Number + " " + item.ID + " " + item.Value + "\n");
-                    }
-                }
-            });             
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

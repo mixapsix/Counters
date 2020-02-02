@@ -15,21 +15,23 @@ namespace Counters.Services
             this.countersContext = countersContext;
         }
 
-        public void WriteData()
+        public void Initialize()
         {
-            List<Counter> counters = new List<Counter>()
+            if (!countersContext.Counters.Any())
             {
-                new Counter() { ID = 1, Value = 1, Number = 1 },
-                new Counter() { ID = 1, Value = 2, Number = 2 },
-                new Counter() { ID = 1, Value = 3, Number = 3 },
-                new Counter() { ID = 2, Value = 1, Number = 4 },
-                new Counter() { ID = 2, Value = 1, Number = 5 },
-                new Counter() { ID = 2, Value = 3, Number = 6 },
-                new Counter() { ID = 2, Value = 1, Number = 7 }
-            };
-
-            counters.ForEach(async x => await InsertDataAsync(x));
-            countersContext.SaveChanges();
+                List<Counter> counters = new List<Counter>()
+                {
+                    new Counter() { ID = 1, Value = 1, Number = 1 },
+                    new Counter() { ID = 1, Value = 2, Number = 2 },
+                    new Counter() { ID = 1, Value = 3, Number = 3 },
+                    new Counter() { ID = 2, Value = 1, Number = 4 },
+                    new Counter() { ID = 2, Value = 1, Number = 5 },
+                    new Counter() { ID = 2, Value = 3, Number = 6 },
+                    new Counter() { ID = 2, Value = 1, Number = 7 }
+                };
+                counters.ForEach(async x => await InsertDataAsync(x));
+                countersContext.SaveChanges();
+            }
         }
 
         public async Task InsertDataAsync(Counter data)
@@ -48,7 +50,6 @@ namespace Counters.Services
         {
             var selectedCounters = from counter in countersContext.Counters
                                    group counter by counter.ID;
-                                   
             return selectedCounters;
         }
         public void DropTable()

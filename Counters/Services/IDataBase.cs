@@ -8,7 +8,7 @@ namespace Counters.Services
     public interface IDataBase
     {
         Task InsertDataAsync (Counter data);
-        void WriteData();
+        void Initialize();
         IQueryable<Counter> GetCounters();
         IQueryable<IGrouping<int, Counter>> GetIDs();
         void DropTable();

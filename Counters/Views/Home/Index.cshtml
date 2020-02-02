@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Counters.Counter>
+@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Список всех позиций</title>
+    <style type="text/css">
+        TABLE {
+            border: 1px solid black; 
+            width: 300px;
+        }
+
+        td, tr {
+            padding: 3px;
+            text-align: left;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h3>Counters</h3>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Counter</td>
+        </tr>
+        @foreach(var counter in Model)
+        {
+        <tr>
+            <td>@counter.ID</td>
+            <td>@counter.Value</td>
+        </tr>
+        }
+    </table>
+</body>
+</html>
