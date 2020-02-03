@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Counters.Migrations
 {
-    public partial class NumberMigration : Migration
+    public partial class AddData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,20 @@ namespace Counters.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Counters", x => x.Number);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Counters",
+                columns: new[] { "Number", "ID", "Value" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 1, 2 },
+                    { 3, 1, 3 },
+                    { 4, 2, 1 },
+                    { 5, 2, 1 },
+                    { 6, 2, 3 },
+                    { 7, 2, 1 }
                 });
         }
 

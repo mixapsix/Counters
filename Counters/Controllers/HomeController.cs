@@ -10,9 +10,11 @@ namespace Counters.Controllers
     public class HomeController : Controller
     {
         IDataBase baseService;
+        int elementCount;
         public HomeController(IDataBase dataBaseService)
         {
             baseService = dataBaseService;
+            elementCount = dataBaseService.CountersContext.Counters.Count();
         }
         public IActionResult Index()
         {
@@ -22,7 +24,7 @@ namespace Counters.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.Number = baseService.CountersContext.Counters.Count() + 1;
+            ViewBag.Number = ++elementCount;
             return View();
         }
 

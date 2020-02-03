@@ -32,9 +32,8 @@ namespace Counters
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase, CountersContext countersContext)
-        {          
-            dataBase.DropTable();
-            dataBase.Initialize();
+        {
+            countersContext.Database.Migrate();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
