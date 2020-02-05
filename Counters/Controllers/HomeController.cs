@@ -4,17 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Counters.Services;
+using Counters.Models;
 
 namespace Counters.Controllers
 {
     public class HomeController : Controller
     {
         IDataBase baseService;
-        int elementCount;
-        public HomeController(IDataBase dataBaseService)
+        TableData tableData;
+        public HomeController(IDataBase dataBaseService, TableData tableData)
         {
             baseService = dataBaseService;
-            elementCount = dataBaseService.CountersContext.Counters.Count();
+            this.tableData = tableData;
         }
         public IActionResult Index()
         {
@@ -24,7 +25,7 @@ namespace Counters.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.Number = ++elementCount;
+            ViewBag.Number = tableData.ElementCount;
             return View();
         }
 
