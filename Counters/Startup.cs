@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Counters.Services;
-using Counters.Models;
 
 namespace Counters
 {
@@ -30,13 +29,11 @@ namespace Counters
             services.AddControllersWithViews();
             services.AddTransient<IDataBase, DataBaseService>();
             services.AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
-            services.AddSingleton<TableData>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase, CountersContext countersContext, TableData tableData)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase, CountersContext countersContext)
         {
             countersContext.Database.Migrate();
-            tableData.ElementCount = countersContext.Counters.Count();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

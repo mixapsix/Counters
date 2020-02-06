@@ -10,8 +10,8 @@ namespace Counters
     public class Counter
     {
         [Key]
-        public int Number { get; set; }
         public int ID { get; set; }
+        public int Number { get; set; }
         public int Value { get; set; }
     }
 }

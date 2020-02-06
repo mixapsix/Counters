@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Counters.Migrations
 {
     [DbContext(typeof(CountersContext))]
-    [Migration("20200203181817_AddData")]
+    [Migration("20200206183534_AddData")]
     partial class AddData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,62 +22,62 @@ namespace Counters.Migrations
 
             modelBuilder.Entity("Counters.Counter", b =>
                 {
-                    b.Property<int>("Number")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("ID")
+                    b.Property<int>("Number")
                         .HasColumnType("integer");
 
                     b.Property<int>("Value")
                         .HasColumnType("integer");
 
-                    b.HasKey("Number");
+                    b.HasKey("ID");
 
                     b.ToTable("Counters");
 
                     b.HasData(
                         new
                         {
+                            ID = -7,
                             Number = 1,
-                            ID = 1,
                             Value = 1
                         },
                         new
                         {
-                            Number = 2,
-                            ID = 1,
+                            ID = -6,
+                            Number = 1,
                             Value = 2
                         },
                         new
                         {
-                            Number = 3,
-                            ID = 1,
+                            ID = -5,
+                            Number = 1,
                             Value = 3
                         },
                         new
                         {
-                            Number = 4,
-                            ID = 2,
+                            ID = -4,
+                            Number = 2,
                             Value = 1
                         },
                         new
                         {
-                            Number = 5,
-                            ID = 2,
+                            ID = -3,
+                            Number = 2,
                             Value = 1
                         },
                         new
                         {
-                            Number = 6,
-                            ID = 2,
+                            ID = -2,
+                            Number = 2,
                             Value = 3
                         },
                         new
                         {
-                            Number = 7,
-                            ID = 2,
+                            ID = -1,
+                            Number = 2,
                             Value = 1
                         });
                 });

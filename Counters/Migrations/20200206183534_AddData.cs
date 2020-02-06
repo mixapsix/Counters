@@ -11,28 +11,28 @@ namespace Counters.Migrations
                 name: "Counters",
                 columns: table => new
                 {
-                    Number = table.Column<int>(nullable: false)
+                    ID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ID = table.Column<int>(nullable: false),
+                    Number = table.Column<int>(nullable: false),
                     Value = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Counters", x => x.Number);
+                    table.PrimaryKey("PK_Counters", x => x.ID);
                 });
 
             migrationBuilder.InsertData(
                 table: "Counters",
-                columns: new[] { "Number", "ID", "Value" },
+                columns: new[] { "ID", "Number", "Value" },
                 values: new object[,]
                 {
-                    { 1, 1, 1 },
-                    { 2, 1, 2 },
-                    { 3, 1, 3 },
-                    { 4, 2, 1 },
-                    { 5, 2, 1 },
-                    { 6, 2, 3 },
-                    { 7, 2, 1 }
+                    { -7, 1, 1 },
+                    { -6, 1, 2 },
+                    { -5, 1, 3 },
+                    { -4, 2, 1 },
+                    { -3, 2, 1 },
+                    { -2, 2, 3 },
+                    { -1, 2, 1 }
                 });
         }
 

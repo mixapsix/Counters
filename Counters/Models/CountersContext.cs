@@ -17,13 +17,13 @@ namespace Counters
         {
             List<Counter> counters = new List<Counter>() 
             {
-                new Counter() { ID = 1, Value = 1, Number = -7 },
-                new Counter() { ID = 1, Value = 2, Number = -6 },
-                new Counter() { ID = 1, Value = 3, Number = -5 },
-                new Counter() { ID = 2, Value = 1, Number = -4 },
-                new Counter() { ID = 2, Value = 1, Number = -3 },
-                new Counter() { ID = 2, Value = 3, Number = -2 },
-                new Counter() { ID = 2, Value = 1, Number = -1 }
+                new Counter() { Value = 1, Number = 1, ID = -7 },
+                new Counter() { Value = 2, Number = 1, ID = -6 },
+                new Counter() { Value = 3, Number = 1, ID = -5 },
+                new Counter() { Value = 1, Number = 2, ID = -4 },
+                new Counter() { Value = 1, Number = 2, ID = -3 },
+                new Counter() { Value = 3, Number = 2, ID = -2 },
+                new Counter() { Value = 1, Number = 2, ID = -1 }
             };
 
             modelBuilder.Entity<Counter>().HasData(counters);
