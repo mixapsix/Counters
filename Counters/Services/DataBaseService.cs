@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Counters;
+using Counters.Models;
 
 namespace Counters.Services
 {
@@ -44,6 +45,21 @@ namespace Counters.Services
             var selectedCounters = from counter in CountersContext.Counters
                                    select counter;
             return selectedCounters;    
+        }
+
+        public IQueryable<Data> GetData()
+        {
+            var selectedCounters = from counter in CountersContext.Counters
+                                   group counter by counter.Number into numbers
+                                   orderby numbers.Key
+                                   select new Data { ID = numbers.Key, 
+                                       Count = numbers.Count(), 
+                                       MoreThanOne = (from counters in CountersContext.Counters
+                                                      where counters.Value > 1 && counters.Number == numbers.Key
+                                                      select counters).Count()
+                                   };
+
+            return selectedCounters;
         }
 
         public void DropTable()

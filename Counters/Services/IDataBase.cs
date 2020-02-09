@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Counters.Models;
 
 namespace Counters.Services
 {
@@ -11,6 +12,7 @@ namespace Counters.Services
         Task InsertDataAsync (Counter data);
         void Initialize();
         IQueryable<Counter> GetCounters();
+        IQueryable<Data> GetData();
         void DropTable();
     }
 }

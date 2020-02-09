@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Counters.Counter>
-@{ 
+﻿@model IEnumerable<Counters.Models.Data>
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -22,22 +22,22 @@
             border-radius: 10px;
             border: 1px solid black;
         }
-    </style>      
+    </style>
 </head>
 <body>
     <h3>Counters</h3>
     <table>
         <tr>
             <td>ID</td>
-            <td>Number</td>
-            <td>Value</td>
+            <td>Count</td>
+            <td>Count more than one</td>
         </tr>
-        @foreach(var counter in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@(counter.ID+8)</td>
-                <td>@counter.Number</td>
-                <td>@counter.Value</td>
+                <td>@(item.ID)</td>
+                <td>@(item.Count)</td>
+                <td>@(item.MoreThanOne)</td>
             </tr>
         }
     </table>

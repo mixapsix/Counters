@@ -32,5 +32,9 @@ namespace Counters.Controllers
             baseService.CountersContext.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult Data()
+        {
+            return View(baseService.GetData().ToList());
+        }
     }
 }
