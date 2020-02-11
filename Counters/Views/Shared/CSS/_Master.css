@@ -1,0 +1,27 @@
+﻿body
+{
+    text-decoration-line: underline;
+}
+
+table 
+{
+    width: 300px;
+    border: 1px solid black;
+}
+
+a 
+{
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px 20px;
+    text-decoration: none;
+    background-color: #deefff;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+input 
+{
+    padding: 5px;
+    border: 1px solid black;
+}
