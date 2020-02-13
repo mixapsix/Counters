@@ -1,6 +1,7 @@
-﻿@{ 
+﻿@{
     Layout = "_Layout";
- }
+    ViewData["Title"]= "Add";
+}
 
 <!DOCTYPE html>
 
@@ -9,9 +10,11 @@
     <h3>Форма добавления в таблицу</h3>
     <p>Заполните все поля</p>
     <form method="post">
-        <input type="number" min="1" placeholder="Number" name="Number" required />
-        <input type="number" min="1" placeholder="Value" name="Value" required />
-        <input type="submit" value="Добавить" />
+            <label>Number</label>
+            <input type="number" min="1" placeholder="Number" name="Number" required />
+            <label>Value</label>
+            <input type="number" min="1" placeholder="Value" name="Value" required />
+            <input type="submit" value="Добавить" />
     </form>
 </body>
 </html>

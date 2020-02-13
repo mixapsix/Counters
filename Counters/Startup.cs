@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Counters.Services;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Counters
 {
@@ -27,6 +29,7 @@ namespace Counters
         public void ConfigureServices(IServiceCollection services)
         {         
             services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddTransient<IDataBase, DataBaseService>();
             services.AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
         }
@@ -34,6 +37,13 @@ namespace Counters
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase, CountersContext countersContext)
         {
             countersContext.Database.Migrate();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                 Path.Combine(Directory.GetCurrentDirectory(), "Views/Shared/CSS")),
+                RequestPath = "/StaticFiles"
+            });
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

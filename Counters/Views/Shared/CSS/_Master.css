@@ -1,27 +1,29 @@
-﻿body
-{
-    text-decoration-line: underline;
-}
-
-table 
-{
-    width: 300px;
+﻿
+table {
+    width: 100%;
     border: 1px solid black;
 }
 
-a 
-{
+a {
     display: inline-block;
     cursor: pointer;
     padding: 5px 20px;
     text-decoration: none;
-    background-color: #deefff;
+    background-color: lightgrey;
     border-radius: 10px;
     border: 1px solid black;
 }
 
-input 
-{
+input {
     padding: 5px;
     border: 1px solid black;
 }
+
+td {
+    width: 33%;
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+    background-color: lightgrey;
+}
+
+
