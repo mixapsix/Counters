@@ -10,9 +10,7 @@ namespace Counters.Services
     {
         CountersContext CountersContext { get; set; }
         Task InsertDataAsync (Counter data);
-        void Initialize();
         IQueryable<Counter> GetCounters();
         IQueryable<Data> GetData();
-        void DropTable();
     }
 }
