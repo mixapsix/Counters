@@ -39,4 +39,9 @@ td {
     width: 30%;
 }
 
-
+@media screen and (max-width: 600px) {
+    a {
+        display: grid;
+        grid-template: auto;
+    }
+}
