@@ -1,4 +1,10 @@
-﻿
+﻿body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 11pt;
+    color: black;
+}
+
+
 table {
     width: 100%;
     border: 1px solid black;
@@ -8,9 +14,9 @@ a {
     display: inline-block;
     cursor: pointer;
     padding: 5px 20px;
+    color: black;
     text-decoration: none;
     background-color: lightgrey;
-    border-radius: 10px;
     border: 1px solid black;
 }
 
@@ -24,6 +30,13 @@ td {
     text-align: center;
     padding: 5px 5px 5px 5px;
     background-color: lightgrey;
+}
+
+.formgrid {
+    display: grid;
+    grid-template: auto;
+    grid-row-gap: 10px;
+    width: 30%;
 }
 
 
