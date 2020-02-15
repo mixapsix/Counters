@@ -42,23 +42,16 @@ namespace Counters.Services
 
         public IQueryable<Counter> GetCounters()
         {
-            var selectedCounters = from counter in CountersContext.Counters
-                                   select counter;
+            var selectedCounters = CountersContext.Counters.Select(p => p);
             return selectedCounters;    
         }
 
         public IQueryable<Data> GetData()
         {
-            var selectedCounters = from counter in CountersContext.Counters
-                                   group counter by counter.Number into numbers
-                                   orderby numbers.Key
-                                   select new Data { ID = numbers.Key, 
-                                       Count = numbers.Count(), 
-                                       MoreThanOne = (from counters in CountersContext.Counters
-                                                      where counters.Value > 1 && counters.Number == numbers.Key
-                                                      select counters).Count()
-                                   };
-
+            var selectedCounters = CountersContext.Counters.
+                GroupBy(numbers => numbers.Number).
+                OrderBy(numbers => numbers.Key).
+                Select(numbers => new Data { ID = numbers.Key, Count = numbers.Count(), MoreThanOne = CountersContext.Counters.Select(p => p).Where(p => p.Value > 1 && p.Number == numbers.Key).Count() });
             return selectedCounters;
         }
 
