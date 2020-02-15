@@ -42,17 +42,15 @@ namespace Counters.Services
 
         public IQueryable<Counter> GetCounters()
         {
-            var selectedCounters = CountersContext.Counters.Select(p => p);
-            return selectedCounters;    
+            return CountersContext.Counters.Select(p => p);    
         }
 
         public IQueryable<Data> GetData()
         {
-            var selectedCounters = CountersContext.Counters.
+            return CountersContext.Counters.
                 GroupBy(numbers => numbers.Number).
                 OrderBy(numbers => numbers.Key).
                 Select(numbers => new Data { ID = numbers.Key, Count = numbers.Count(), MoreThanOne = CountersContext.Counters.Select(p => p).Where(p => p.Value > 1 && p.Number == numbers.Key).Count() });
-            return selectedCounters;
         }
 
         public void DropTable()

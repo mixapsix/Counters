@@ -4,7 +4,18 @@
     color: black;
 }
 
+@media (min-width: 600px) {
+    a {
+        display: grid;
+        grid-template: auto;
+    }
 
+    .formgrid {
+        display: grid;
+        grid-template: 100%;
+        grid-row-gap: 10px;
+    }
+}
 table {
     width: 100%;
     border: 1px solid black;
@@ -34,14 +45,31 @@ td {
 
 .formgrid {
     display: grid;
-    grid-template: auto;
+    grid-template: 30%;
     grid-row-gap: 10px;
-    width: 30%;
 }
 
-@media screen and (max-width: 600px) {
+
+@media (max-width: 600px) {
     a {
         display: grid;
         grid-template: auto;
+    }
+
+    .formgrid {
+        display: grid;
+        grid-template: 100%;
+    }
+
+}@media (min-width: 600px) {
+    a {
+        display: inline-block;
+        grid-template: 30%;
+    }
+
+    .formgrid {
+        display: grid;
+        grid-template: auto;
+        width: 30%;
     }
 }
