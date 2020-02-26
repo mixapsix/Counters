@@ -44,14 +44,4 @@ namespace Counters.TagHelpers
             }
         }
     }
-
-    public enum SortState
-    {
-        IDAsc,
-        IDDesc,
-        NumberIDAsc,
-        NumberDesc,
-        ValueIDAsc,
-        ValueDesc
-    }
 }

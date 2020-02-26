@@ -37,12 +37,7 @@ namespace Counters
         {
             countersContext.Database.Migrate();
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                 Path.Combine(Directory.GetCurrentDirectory(), "Views/Shared/CSS")),
-                RequestPath = "/StaticFiles"
-            });
+            app.UseStaticFiles();
 
             app.UseRouting();
 

@@ -14,4 +14,13 @@ namespace Counters
         public int Number { get; set; }
         public int Value { get; set; }
     }
+    public enum SortState
+    {
+        IDAsc,
+        IDDesc,
+        NumberAsc,
+        NumberDesc,
+        ValueAsc,
+        ValueDesc
+    }
 }

@@ -1,26 +1,45 @@
-﻿@model IEnumerable<Counters.Counter>
-@{ 
+﻿@using Counters.Models;
+@model IndexViewModel
+@addTagHelper *, Counters
+
+@{
     Layout = "_Layout";
-    ViewData["Title"]="Index";
+    ViewData["Title"] = "Index";
 }
 <!DOCTYPE html>
 
 <html>
 <head>
-    <title>Список всех позиций</title>    
+    <title>Список всех позиций</title>
+
 </head>
 <body>
     <h3>Counters</h3>
     <table>
         <tr>
-            <td>ID</td>
-            <td>Number</td>
-            <td>Value</td>
+            <th>               
+                <sort-header action="Index" up="@Model.SortViewModel.Up"
+                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.IDSort">
+                    ID
+                </sort-header>
+            </th>
+            <th>
+                <sort-header action="Index" up="@Model.SortViewModel.Up"
+                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.NumberSort">
+                    Number
+                </sort-header>
+            </th>
+            <th>
+                <sort-header action="Index" up="@Model.SortViewModel.Up"
+                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.ValueSort">
+                    Value
+                </sort-header>
+            </th>
         </tr>
-        @foreach(var counter in Model)
+        @foreach (var counter in Model.Counters)
         {
             <tr>
-                <td>@(counter.ID+8)</td>
+                <td>@(counter.ID + 8)</td>
                 <td>@counter.Number</td>
                 <td>@counter.Value</td>
             </tr>

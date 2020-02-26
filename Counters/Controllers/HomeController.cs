@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Counters.Services;
+using Counters.Models;
 
 namespace Counters.Controllers
 {
@@ -14,9 +16,24 @@ namespace Counters.Controllers
         {
             baseService = dataBaseService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(SortState sortOrder = SortState.IDAsc)
         {
-            return View(baseService.GetCounters().ToList());
+            var data = baseService.GetCounters();
+            data = sortOrder switch
+            {
+                SortState.IDDesc => data.OrderByDescending(x => x.ID),
+                SortState.NumberAsc => data.OrderBy(x => x.Number),
+                SortState.NumberDesc => data.OrderByDescending(x => x.Number),
+                SortState.ValueAsc => data.OrderBy(x => x.Value),
+                SortState.ValueDesc => data.OrderByDescending(x => x.Value),
+                _ => data.OrderBy(x => x.ID),
+            };
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                Counters = await data.AsNoTracking().ToListAsync(),
+                SortViewModel = new SortViewModel(sortOrder)
+            };
+            return View(viewModel);
         }
 
         [HttpGet]
