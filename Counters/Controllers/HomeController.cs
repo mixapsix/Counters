@@ -16,7 +16,7 @@ namespace Counters.Controllers
         {
             baseService = dataBaseService;
         }
-        public async Task<IActionResult> Index(SortState sortOrder = SortState.IDAsc)
+        public async Task<IActionResult> Index(SortState sortOrder = SortState.IDAsc, int page = 1)
         {
             var data = baseService.GetCounters();
             data = sortOrder switch
@@ -28,11 +28,20 @@ namespace Counters.Controllers
                 SortState.ValueDesc => data.OrderByDescending(x => x.Value),
                 _ => data.OrderBy(x => x.ID),
             };
+
+            data = data.AsNoTracking();
+            int pageSize = 5;
+            var count = await data.CountAsync();
+            var items = await data.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
             IndexViewModel viewModel = new IndexViewModel
             {
-                Counters = await data.AsNoTracking().ToListAsync(),
-                SortViewModel = new SortViewModel(sortOrder)
+                Counters = items,
+                SortViewModel = new SortViewModel(sortOrder),
+                PageViewModel = new PageViewModel(count, page, pageSize)              
             };
+
+
             return View(viewModel);
         }
 
