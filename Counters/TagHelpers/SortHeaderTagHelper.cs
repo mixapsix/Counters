@@ -17,6 +17,9 @@ namespace Counters.TagHelpers
         public SortState Current { get; set; }
         public string Action { get; set; }
         public bool Up { get; set; }
+        public int? SelectedID { get; set; }
+        public int? SelectedValue { get; set; }
+        public int? SelectedNumber { get; set; }
 
         private readonly IUrlHelperFactory _urlHelperFactory;
         public SortHeaderTagHelper(IUrlHelperFactory urlHelperFactory)
@@ -32,7 +35,7 @@ namespace Counters.TagHelpers
         {
             IUrlHelper urlHelper = _urlHelperFactory.GetUrlHelper(ViewContext);
             output.TagName = "a";
-            string url = urlHelper.Action(Action, new { sortOrder = Property });
+            string url = urlHelper.Action(Action, new { selectID = SelectedID, selectValue = SelectedValue, selectNumber = SelectedNumber, sortOrder = Property });
             output.Attributes.SetAttribute("href", url);
             if(Current == Property)
             {

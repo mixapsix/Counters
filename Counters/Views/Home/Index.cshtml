@@ -11,27 +11,45 @@
 <html>
 <head>
     <title>Список всех позиций</title>
-
 </head>
 <body>
     <h3>Counters</h3>
+    <form method="get">
+        <div>
+            <label>ID:</label>
+            <input name="selectID" value="@Model.FilterViewModel.SelectedID" />
+            <label>Number:</label>
+            <input name="selectNumber" value="@Model.FilterViewModel.SelectedNumber" />
+            <label>Value:</label>
+            <input name="selectValue" value="@Model.FilterViewModel.SelectedValue" />
+
+            <input type="submit" value="Фильтр" />
+        </div> 
+    </form>
+    <br />
     <table>
         <tr>
             <th>               
                 <sort-header action="Index" up="@Model.SortViewModel.Up"
-                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.IDSort">
+                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.IDSort"
+                             selected-id="Model.FilterViewModel.SelectedID" selected-number="@Model.FilterViewModel.SelectedNumber" 
+                             selected-value="@Model.FilterViewModel.SelectedValue">
                     ID
                 </sort-header>
             </th>
             <th>
                 <sort-header action="Index" up="@Model.SortViewModel.Up"
-                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.NumberSort">
+                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.NumberSort"
+                             selected-id="Model.FilterViewModel.SelectedID" selected-number="@Model.FilterViewModel.SelectedNumber" 
+                             selected-value="@Model.FilterViewModel.SelectedValue">
                     Number
                 </sort-header>
             </th>
             <th>
                 <sort-header action="Index" up="@Model.SortViewModel.Up"
-                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.ValueSort">
+                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.ValueSort"
+                             selected-id="Model.FilterViewModel.SelectedID" selected-number="@Model.FilterViewModel.SelectedNumber" 
+                             selected-value="@Model.FilterViewModel.SelectedValue">
                     Value
                 </sort-header>
             </th>

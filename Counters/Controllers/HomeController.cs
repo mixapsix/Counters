@@ -16,9 +16,24 @@ namespace Counters.Controllers
         {
             baseService = dataBaseService;
         }
-        public async Task<IActionResult> Index(SortState sortOrder = SortState.IDAsc, int page = 1)
+        public async Task<IActionResult> Index(int? selectID, int? selectNumber, int? selectValue, SortState sortOrder = SortState.IDAsc, int page = 1)
         {
             var data = baseService.GetCounters();
+            int pageSize = 5;
+
+            if(selectID!=null)
+            {
+                data = data.Where(k => k.ID + 8 == selectID).Select(k=>k);
+            }
+            if (selectNumber != null)
+            {
+                data = data.Where(k => k.Number == selectNumber).Select(k => k);
+            }
+            if (selectValue != null)
+            {
+                data = data.Where(k => k.Value == selectValue).Select(k => k);
+            }
+
             data = sortOrder switch
             {
                 SortState.IDDesc => data.OrderByDescending(x => x.ID),
@@ -28,9 +43,7 @@ namespace Counters.Controllers
                 SortState.ValueDesc => data.OrderByDescending(x => x.Value),
                 _ => data.OrderBy(x => x.ID),
             };
-
-            data = data.AsNoTracking();
-            int pageSize = 5;
+            
             var count = await data.CountAsync();
             var items = await data.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -38,10 +51,9 @@ namespace Counters.Controllers
             {
                 Counters = items,
                 SortViewModel = new SortViewModel(sortOrder),
-                PageViewModel = new PageViewModel(count, page, pageSize)              
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                FilterViewModel = new FilterViewModel(selectID, selectNumber, selectValue)
             };
-
-
             return View(viewModel);
         }
 
