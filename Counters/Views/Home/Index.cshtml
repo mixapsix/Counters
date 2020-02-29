@@ -32,24 +32,21 @@
             <th>               
                 <sort-header action="Index" up="@Model.SortViewModel.Up"
                              current="@Model.SortViewModel.Current" property="@Model.SortViewModel.IDSort"
-                             selected-id="Model.FilterViewModel.SelectedID" selected-number="@Model.FilterViewModel.SelectedNumber" 
-                             selected-value="@Model.FilterViewModel.SelectedValue">
+                             filter-view-model="@Model.FilterViewModel">
                     ID
                 </sort-header>
             </th>
             <th>
                 <sort-header action="Index" up="@Model.SortViewModel.Up"
                              current="@Model.SortViewModel.Current" property="@Model.SortViewModel.NumberSort"
-                             selected-id="Model.FilterViewModel.SelectedID" selected-number="@Model.FilterViewModel.SelectedNumber" 
-                             selected-value="@Model.FilterViewModel.SelectedValue">
+                             filter-view-model="@Model.FilterViewModel">
                     Number
                 </sort-header>
             </th>
             <th>
                 <sort-header action="Index" up="@Model.SortViewModel.Up"
                              current="@Model.SortViewModel.Current" property="@Model.SortViewModel.ValueSort"
-                             selected-id="Model.FilterViewModel.SelectedID" selected-number="@Model.FilterViewModel.SelectedNumber" 
-                             selected-value="@Model.FilterViewModel.SelectedValue">
+                             filter-view-model="@Model.FilterViewModel">
                     Value
                 </sort-header>
             </th>
@@ -63,6 +60,7 @@
             </tr>
         }
     </table>
-    <page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
+    <page-link page-model="Model.PageViewModel" page-action="Index" filter-view-model="@Model.FilterViewModel">
+    </page-link>
 </body>
 </html>

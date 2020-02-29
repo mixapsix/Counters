@@ -19,33 +19,22 @@ namespace Counters.Models
             IDSort = SortState.IDAsc;
             NumberSort = SortState.NumberAsc;
             ValueSort = SortState.ValueAsc;
-            Up = true;
+            Up = false;
 
             if(sortOrder == SortState.ValueDesc || sortOrder == SortState.IDDesc || sortOrder == SortState.NumberDesc)
             {
-                Up = false;
+                Up = true;
             }
-            switch(sortOrder)
+
+            Current = sortOrder switch
             {
-                case SortState.IDDesc:
-                    Current = IDSort = SortState.IDAsc;
-                    break;
-                case SortState.NumberAsc:
-                    Current = NumberSort = SortState.NumberDesc;
-                    break;
-                case SortState.NumberDesc:
-                    Current = NumberSort = SortState.NumberAsc;
-                    break;
-                case SortState.ValueAsc:
-                    Current = ValueSort = SortState.ValueDesc;
-                    break;
-                case SortState.ValueDesc:
-                    Current = ValueSort = SortState.ValueAsc;
-                    break;
-                default:
-                    Current = IDSort = SortState.IDDesc;
-                    break;
-            }
+                SortState.IDDesc => IDSort = SortState.IDAsc,
+                SortState.NumberAsc => NumberSort = SortState.NumberDesc,
+                SortState.NumberDesc => NumberSort = SortState.NumberAsc,
+                SortState.ValueAsc => ValueSort = SortState.ValueDesc,
+                SortState.ValueDesc => ValueSort = SortState.ValueAsc,
+                _ => IDSort = SortState.IDDesc,
+            };
         }
     }
 }

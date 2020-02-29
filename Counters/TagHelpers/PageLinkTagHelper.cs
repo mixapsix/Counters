@@ -24,9 +24,7 @@ namespace Counters.TagHelpers
         public ViewContext ViewContext { get; set; }
         public PageViewModel PageModel { get; set; }
         public string PageAction { get; set; }
-
-        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
-        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
+        public FilterViewModel filterViewModel { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -65,8 +63,7 @@ namespace Counters.TagHelpers
             }
             else
             {
-                PageUrlValues["page"] = pageNumber;
-                link.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
+                link.Attributes["href"] = urlHelper.Action(PageAction, new { selectID = filterViewModel.SelectedID, selectValue = filterViewModel.SelectedValue, selectNumber = filterViewModel.SelectedNumber, page = pageNumber});
             }
             item.AddCssClass("page-item");
             link.AddCssClass("page-link");
