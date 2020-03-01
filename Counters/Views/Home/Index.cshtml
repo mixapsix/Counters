@@ -24,12 +24,12 @@
             <input name="selectValue" value="@Model.FilterViewModel.SelectedValue" />
 
             <input type="submit" value="Фильтр" />
-        </div> 
+        </div>
     </form>
     <br />
     <table>
         <tr>
-            <th>               
+            <th>
                 <sort-header action="Index" up="@Model.SortViewModel.Up"
                              current="@Model.SortViewModel.Current" property="@Model.SortViewModel.IDSort"
                              filter-view-model="@Model.FilterViewModel">

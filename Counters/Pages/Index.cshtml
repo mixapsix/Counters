@@ -1,0 +1,33 @@
+﻿@page
+@model Counters.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Index</h1>
+<table>
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Number
+        </th>
+        <th>
+            Value
+        </th>
+    </tr>
+    @foreach (var counter in Model.Counters)
+    {
+        <tr>
+            <td>
+                @(counter.ID + 8)
+            </td>
+            <td>
+                @counter.Number
+            </td>
+            <td>
+                @counter.Value
+            </td>
+        </tr>
+    }
+</table>

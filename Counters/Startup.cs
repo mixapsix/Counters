@@ -27,8 +27,7 @@ namespace Counters
 
         public void ConfigureServices(IServiceCollection services)
         {         
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddMvc();
             services.AddTransient<IDataBase, DataBaseService>();
             services.AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
         }
@@ -42,10 +41,11 @@ namespace Counters
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
-            {
+            {              
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
