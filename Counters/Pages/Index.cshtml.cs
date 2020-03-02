@@ -12,14 +12,14 @@ namespace Counters
     public class IndexModel : PageModel
     {
         public IEnumerable<Counter> Counters { get; set; }
-        public IDataBase DataBase { get; set; }
+        private IDataBase dataBase;
         public IndexModel(IDataBase dataBase)
         {
-            DataBase = dataBase;
+            this.dataBase = dataBase;
         }
         public async Task OnGetAsync()
         {
-            Counters = await DataBase.GetCounters().ToListAsync();
+            Counters = await dataBase.GetCounters().ToListAsync();
         }
     }
 }
