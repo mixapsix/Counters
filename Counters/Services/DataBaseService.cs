@@ -19,6 +19,7 @@ namespace Counters.Services
         public async Task InsertDataAsync(Counter data)
         {
             await CountersContext.AddAsync<Counter>(data);
+            CountersContext.SaveChanges();
         }
 
         public IQueryable<Counter> GetCounters()

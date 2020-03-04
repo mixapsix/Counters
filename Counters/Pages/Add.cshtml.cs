@@ -18,14 +18,10 @@ namespace Counters
         {
             _dataBase = dataBase;
         }
-        public void OnGet()
-        {
-
-        }
-        public IActionResult OnPost()
+        public async Task OnPostAsync()
         {           
-            _dataBase.InsertDataAsync(Counter);
-            return RedirectToPage("Index");
+            await _dataBase.InsertDataAsync(Counter);
+            Response.Redirect("Index");
         }
     }
 }

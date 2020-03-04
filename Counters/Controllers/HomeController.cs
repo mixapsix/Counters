@@ -67,7 +67,6 @@ namespace Counters.Controllers
         public IActionResult Add(Counter counter)
         {            
             baseService.InsertDataAsync(counter);
-            baseService.CountersContext.SaveChanges();
             return RedirectToAction("Index");
         }
         public IActionResult Data()
