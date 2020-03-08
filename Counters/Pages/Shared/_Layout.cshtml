@@ -5,14 +5,18 @@
     @addTagHelper *, AuthoringTagHelpers
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/_Master.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/_Master.css" asp-append-version="true"/>
 </head>
 <body>
-    <a href="~/Home/Index/">Главная страница</a>
-    <a href="~/Home/Data/">Страница с выборкой</a>
-    <a href="~/Home/Add/">Страница добавления строк</a>
-    <a href="~/Counters/Index">Главная страница на RazorPages</a>
-    <a href="~/Counters/Add">Страница добавления строк на RazorPages</a>
+    <div class="toolbox">
+        <ul>
+            <li><a href="~/Home/Index/">Главная страница</a></li>
+            <li><a href="~/Home/Data/">Страница с выборкой</a></li>
+            <li><a href="~/Home/Add/">Страница добавления строк</a></li>
+            <li><a href="~/Counters/Index">Главная страница на RazorPages</a></li>
+            <li><a href="~/Counters/Add">Страница добавления строк на RazorPages</a></li>
+        </ul>
+    </div>
     @RenderBody()
 </body>
 </html>

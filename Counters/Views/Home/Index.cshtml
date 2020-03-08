@@ -14,7 +14,7 @@
 <body>
     <h3>Counters</h3>
     <form method="get">
-        <div>
+        <div class="filter">
             <label>ID:</label>
             <input name="selectID" value="@Model.FilterViewModel.SelectedID" />
             <label>Number:</label>
@@ -25,40 +25,44 @@
         </div>
     </form>
     <br />
-    <table>
-        <tr>
-            <th>
-                <sort-header action="Index" up="@Model.SortViewModel.Up"
-                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.IDSort"
-                             filter-view-model="@Model.FilterViewModel" page-number="@Model.PageViewModel.PageNumber">
-                    ID
-                </sort-header>
-            </th>
-            <th>
-                <sort-header action="Index" up="@Model.SortViewModel.Up"
-                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.NumberSort"
-                             filter-view-model="@Model.FilterViewModel" page-number="@Model.PageViewModel.PageNumber">
-                    Number
-                </sort-header>
-            </th>
-            <th>
-                <sort-header action="Index" up="@Model.SortViewModel.Up"
-                             current="@Model.SortViewModel.Current" property="@Model.SortViewModel.ValueSort"
-                             filter-view-model="@Model.FilterViewModel" page-number="@Model.PageViewModel.PageNumber">
-                    Value
-                </sort-header>
-            </th>
-        </tr>
-        @foreach (var counter in Model.Counters)
-        {
+    <div class="sort">
+        <table>
             <tr>
-                <td>@(counter.ID + 8)</td>
-                <td>@counter.Number</td>
-                <td>@counter.Value</td>
+                <th>
+                    <sort-header action="Index" up="@Model.SortViewModel.Up"
+                                 current="@Model.SortViewModel.Current" property="@Model.SortViewModel.IDSort"
+                                 filter-view-model="@Model.FilterViewModel" page-number="@Model.PageViewModel.PageNumber">
+                        ID
+                    </sort-header>
+                </th>
+                <th>
+                    <sort-header action="Index" up="@Model.SortViewModel.Up"
+                                 current="@Model.SortViewModel.Current" property="@Model.SortViewModel.NumberSort"
+                                 filter-view-model="@Model.FilterViewModel" page-number="@Model.PageViewModel.PageNumber">
+                        Number
+                    </sort-header>
+                </th>
+                <th>
+                    <sort-header action="Index" up="@Model.SortViewModel.Up"
+                                 current="@Model.SortViewModel.Current" property="@Model.SortViewModel.ValueSort"
+                                 filter-view-model="@Model.FilterViewModel" page-number="@Model.PageViewModel.PageNumber">
+                        Value
+                    </sort-header>
+                </th>
             </tr>
-        }
-    </table>
-    <page-link page-model="Model.PageViewModel" page-action="Index" filter-view-model="@Model.FilterViewModel" sort-order = "@Model.SortViewModel.Current">
-    </page-link>
+            @foreach (var counter in Model.Counters)
+            {
+                <tr>
+                    <td>@(counter.ID + 8)</td>
+                    <td>@counter.Number</td>
+                    <td>@counter.Value</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="page">
+        <page-link page-model="Model.PageViewModel" page-action="Index" filter-view-model="@Model.FilterViewModel" sort-order="@Model.SortViewModel.Current">
+        </page-link>
+    </div>
 </body>
 </html>

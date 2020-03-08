@@ -11,35 +11,6 @@
     font-style: normal
 }
 
-.glyphicon {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale
-}
-
-.glyphicon-chevron-down:before {
-    content: "\f078";
-}
-
-.glyphicon-chevron-up:before {
-    content: "\f077";
-}
-
-@media (min-width: 600px) {
-    a {
-        display: grid;
-        grid-template: auto;
-    }
-
-    .formgrid {
-        display: grid;
-        grid-template: 100%;
-        grid-row-gap: 10px;
-    }
-}
 table {
     width: 100%;
     border: 1px solid black;
@@ -52,7 +23,6 @@ li {
 
 a {
     cursor: pointer;
-    padding: 5px 20px;
     color: black;
     text-decoration: none;
     background-color: lightgrey;
@@ -70,9 +40,34 @@ a {
     transition: 0.2s;
     font-size: 10pt;
 }
+.toolbox ul{
+    padding: 0px;
+}
 
-.active {
+.toolbox li {
+    width: 50%;
+}
+
+.toolbox a {
+    display:grid;
+    padding: 5px 20px;
+    margin: auto;
+}
+
+.sort a {
+    padding: 5px 0 5px 0;
+    display: grid;
+    grid-template: auto;
+    width: 100%;
+}
+
+.page a {
+    padding: 5px 20px;
+}
+
+.active a {
     font-size: 17pt;
+    background-color: grey;
 }
 
 input {
@@ -94,23 +89,30 @@ td {
 }
 
 
-@media (max-width: 600px) {
-    a {
-        display: grid;
-        grid-template: auto;
-    }
+@media (max-width: 750px) {
 
     .formgrid {
         display: grid;
         grid-template: 100%;
     }
 
-}@media (min-width: 600px) {
-    a {
-        display: inline-block;
-        grid-template: 30%;
+    .filter {
+        display: grid;
+        width: 100%;
+    }
+    .toolbox {
+        width: 100%;
     }
 
+}@media (min-width: 750px) {
+
+    .filter {       
+        display: inline;
+        width: 50%;
+    }
+    .toolbox {
+        width: 50%;
+    }
     .formgrid {
         display: grid;
         grid-template: auto;
