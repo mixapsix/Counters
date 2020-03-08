@@ -59,10 +59,16 @@ a {
     border: 1px solid black;
 }
 
-a:hover {
+
+.toolbox:hover a:hover{
     background-color: grey;
     transition: 0.2s;
-    font-size: 17pt;
+    font-size: 15pt;
+}
+
+.toolbox:hover a {
+    transition: 0.2s;
+    font-size: 10pt;
 }
 
 .active {
