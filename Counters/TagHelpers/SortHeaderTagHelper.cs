@@ -36,14 +36,6 @@ namespace Counters.TagHelpers
             output.TagName = "a";
             string url = urlHelper.Action(Action, new { selectID = filterViewModel.SelectedID, selectValue = filterViewModel.SelectedValue, selectNumber = filterViewModel.SelectedNumber, sortOrder = Property, page= PageNumber });
             output.Attributes.SetAttribute("href", url);
-            if(Current == Property)
-            {
-                TagBuilder tag = new TagBuilder("i");
-                tag.AddCssClass("glyphicon");
-                if (Up == true) tag.AddCssClass("glyphicon-chevron-up");
-                else tag.AddCssClass("glyphicon-chevron-down");
-                output.PreContent.AppendHtml(tag);
-            }
         }
     }
 }

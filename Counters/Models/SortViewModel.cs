@@ -16,16 +16,6 @@ namespace Counters.Models
 
         public SortViewModel(SortState sortOrder)
         {
-            IDSort = SortState.IDAsc;
-            NumberSort = SortState.NumberAsc;
-            ValueSort = SortState.ValueAsc;
-            Up = false;
-
-            if(sortOrder == SortState.ValueDesc || sortOrder == SortState.IDDesc || sortOrder == SortState.NumberDesc)
-            {
-                Up = true;
-            }
-
             IDSort = sortOrder == SortState.IDAsc ? SortState.IDDesc : SortState.IDAsc;
             NumberSort = sortOrder == SortState.NumberAsc ? SortState.NumberDesc : SortState.NumberAsc;
             ValueSort = sortOrder == SortState.ValueAsc ? SortState.ValueDesc : SortState.ValueAsc;
