@@ -26,15 +26,10 @@ namespace Counters.Models
                 Up = true;
             }
 
-            Current = sortOrder switch
-            {
-                SortState.IDDesc => IDSort = SortState.IDAsc,
-                SortState.NumberAsc => NumberSort = SortState.NumberDesc,
-                SortState.NumberDesc => NumberSort = SortState.NumberAsc,
-                SortState.ValueAsc => ValueSort = SortState.ValueDesc,
-                SortState.ValueDesc => ValueSort = SortState.ValueAsc,
-                _ => IDSort = SortState.IDDesc,
-            };
+            IDSort = sortOrder == SortState.IDAsc ? SortState.IDDesc : SortState.IDAsc;
+            NumberSort = sortOrder == SortState.NumberAsc ? SortState.NumberDesc : SortState.NumberAsc;
+            ValueSort = sortOrder == SortState.ValueAsc ? SortState.ValueDesc : SortState.ValueAsc;
+            Current = sortOrder;
         }
     }
 }

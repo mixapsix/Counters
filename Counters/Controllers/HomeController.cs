@@ -18,6 +18,7 @@ namespace Counters.Controllers
         }
         public async Task<IActionResult> Index(int? selectID, int? selectNumber, int? selectValue, SortState sortOrder = SortState.IDAsc, int page = 1)
         {
+            
             var data = baseService.GetCounters();
             int pageSize = 5;
 
@@ -33,17 +34,16 @@ namespace Counters.Controllers
             {
                 data = data.Where(k => k.Value == selectValue).Select(k => k);
             }
-
-            data = sortOrder switch
-            {
-                SortState.IDDesc => data.OrderByDescending(x => x.ID),
-                SortState.NumberAsc => data.OrderBy(x => x.Number),
-                SortState.NumberDesc => data.OrderByDescending(x => x.Number),
-                SortState.ValueAsc => data.OrderBy(x => x.Value),
-                SortState.ValueDesc => data.OrderByDescending(x => x.Value),
-                _ => data.OrderBy(x => x.ID),
-            };
-            
+                data = sortOrder switch
+                {
+                    SortState.IDDesc => data.OrderByDescending(x => x.ID),
+                    SortState.NumberAsc => data.OrderBy(x => x.Number),
+                    SortState.NumberDesc => data.OrderByDescending(x => x.Number),
+                    SortState.ValueAsc => data.OrderBy(x => x.Value),
+                    SortState.ValueDesc => data.OrderByDescending(x => x.Value),
+                    _ => data.OrderBy(x => x.ID),
+                };
+  
             var count = await data.CountAsync();
             var items = await data.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 

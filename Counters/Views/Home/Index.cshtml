@@ -21,7 +21,6 @@
             <input name="selectNumber" value="@Model.FilterViewModel.SelectedNumber" />
             <label>Value:</label>
             <input name="selectValue" value="@Model.FilterViewModel.SelectedValue" />
-
             <input type="submit" value="Фильтр" />
         </div>
     </form>
@@ -31,21 +30,21 @@
             <th>
                 <sort-header action="Index" up="@Model.SortViewModel.Up"
                              current="@Model.SortViewModel.Current" property="@Model.SortViewModel.IDSort"
-                             filter-view-model="@Model.FilterViewModel">
+                             filter-view-model="@Model.FilterViewModel" page-number="@Model.PageViewModel.PageNumber">
                     ID
                 </sort-header>
             </th>
             <th>
                 <sort-header action="Index" up="@Model.SortViewModel.Up"
                              current="@Model.SortViewModel.Current" property="@Model.SortViewModel.NumberSort"
-                             filter-view-model="@Model.FilterViewModel">
+                             filter-view-model="@Model.FilterViewModel" page-number="@Model.PageViewModel.PageNumber">
                     Number
                 </sort-header>
             </th>
             <th>
                 <sort-header action="Index" up="@Model.SortViewModel.Up"
                              current="@Model.SortViewModel.Current" property="@Model.SortViewModel.ValueSort"
-                             filter-view-model="@Model.FilterViewModel">
+                             filter-view-model="@Model.FilterViewModel" page-number="@Model.PageViewModel.PageNumber">
                     Value
                 </sort-header>
             </th>
@@ -59,7 +58,7 @@
             </tr>
         }
     </table>
-    <page-link page-model="Model.PageViewModel" page-action="Index" filter-view-model="@Model.FilterViewModel">
+    <page-link page-model="Model.PageViewModel" page-action="Index" filter-view-model="@Model.FilterViewModel" sort-order = "@Model.SortViewModel.Current">
     </page-link>
 </body>
 </html>

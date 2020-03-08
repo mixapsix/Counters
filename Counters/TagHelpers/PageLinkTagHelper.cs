@@ -25,6 +25,7 @@ namespace Counters.TagHelpers
         public PageViewModel PageModel { get; set; }
         public string PageAction { get; set; }
         public FilterViewModel filterViewModel { get; set; }
+        public SortState SortOrder { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -63,7 +64,7 @@ namespace Counters.TagHelpers
             }
             else
             {
-                link.Attributes["href"] = urlHelper.Action(PageAction, new { selectID = filterViewModel.SelectedID, selectValue = filterViewModel.SelectedValue, selectNumber = filterViewModel.SelectedNumber, page = pageNumber});
+                link.Attributes["href"] = urlHelper.Action(PageAction, new { selectID = filterViewModel.SelectedID, selectValue = filterViewModel.SelectedValue, selectNumber = filterViewModel.SelectedNumber, sortOrder = SortOrder, page = pageNumber });
             }
             item.AddCssClass("page-item");
             link.AddCssClass("page-link");

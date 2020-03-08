@@ -18,6 +18,7 @@ namespace Counters.TagHelpers
         public string Action { get; set; }
         public bool Up { get; set; }
         public FilterViewModel filterViewModel { get; set; }
+        public int PageNumber { get; set; }
 
         private readonly IUrlHelperFactory _urlHelperFactory;
         public SortHeaderTagHelper(IUrlHelperFactory urlHelperFactory)
@@ -33,7 +34,7 @@ namespace Counters.TagHelpers
         {
             IUrlHelper urlHelper = _urlHelperFactory.GetUrlHelper(ViewContext);
             output.TagName = "a";
-            string url = urlHelper.Action(Action, new { selectID = filterViewModel.SelectedID, selectValue = filterViewModel.SelectedValue, selectNumber = filterViewModel.SelectedNumber, sortOrder = Property });
+            string url = urlHelper.Action(Action, new { selectID = filterViewModel.SelectedID, selectValue = filterViewModel.SelectedValue, selectNumber = filterViewModel.SelectedNumber, sortOrder = Property, page= PageNumber });
             output.Attributes.SetAttribute("href", url);
             if(Current == Property)
             {
