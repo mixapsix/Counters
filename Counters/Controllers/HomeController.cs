@@ -73,5 +73,10 @@ namespace Counters.Controllers
         {
             return View(baseService.GetData().ToList());
         }
+
+        public IActionResult IndexAJAX()
+        {
+            return View();
+        }
     }
 }
