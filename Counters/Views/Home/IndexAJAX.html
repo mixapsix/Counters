@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Список всех позиций</title>
+</head>
+<body>
+    <h2>Список всех значений</h2>
+    <table>
+        <thead><tr><th>ID</th><th>Number</th><th>Value</th></tr></thead>
+        <tbody></tbody>
+    </table>
+    <script>
+
+        async function GetUsers() {
+            const responce = await fetch("/Home/IndexAJAX/", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+
+            if (responce.ok === true) {
+                const counters = await responce.json();
+                let rows = document.querySelector("tbody");
+                counters.forEach(counter => {
+                    rows.append(row(counter));
+                });
+            }
+        }
+        function row(counter) {
+            const tr = document.createElement("tr");
+            tr.setAttribute("data-rowid", counter.id);
+
+            const idTd = document.createElement("td");
+            idTd.append(counter.id);
+            tr.append(idTd);
+
+            const numberTd = document.createElement("td");
+            numberTd.append(counter.number);
+            tr.append(numberTd);
+
+            const valueTd = document.createElement("td");
+            valueTd.append(counter.value);
+            tr.append(valueTd);
+
+            return tr;
+        }
+    </script>
+</body>
+</html>
