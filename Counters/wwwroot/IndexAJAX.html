@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="css/_Master.css"/>
     <title>Список всех позиций</title>
 </head>
 <body>
@@ -11,28 +12,40 @@
         <thead><tr><th>ID</th><th>Number</th><th>Value</th></tr></thead>
         <tbody></tbody>
     </table>
+    <div id="pagination">
+
+    </div>
+
+
     <script>
+        var countOfRecords; 
+        var currentPage = 1;
+
+        GetUsers();
 
         async function GetUsers() {
             const responce = await fetch("/Home/IndexAJAX/", {
                 method: "GET",
-                headers: { "Accept": "application/json" }
+                headers: { "Accept": "application/json" },
             });
 
             if (responce.ok === true) {
                 const counters = await responce.json();
                 let rows = document.querySelector("tbody");
+                countOfRecords = counters.length;
                 counters.forEach(counter => {
                     rows.append(row(counter));
                 });
+                GetPages();
             }
         }
+
         function row(counter) {
             const tr = document.createElement("tr");
             tr.setAttribute("data-rowid", counter.id);
 
             const idTd = document.createElement("td");
-            idTd.append(counter.id);
+            idTd.append(counter.id+8);
             tr.append(idTd);
 
             const numberTd = document.createElement("td");
@@ -44,6 +57,38 @@
             tr.append(valueTd);
 
             return tr;
+        }
+
+        function GetPages() {
+
+            let rows = document.getElementById("pagination");
+
+            if (currentPage > 1) {
+                const prevPage = document.createElement("a");
+                prevPage.append(currentPage - 1);
+                prevPage.addEventListener("click", e => {
+                    e.preventDefault();
+                });
+                rows.append(prevPage);
+            }
+
+            const current = document.createElement("a");
+            current.append(currentPage);
+            current.addEventListener("click", e => {
+                e.preventDefault();
+            });
+            rows.append(current);
+
+            if (countOfRecords / 10 > currentPage) {
+                const nextPage = document.createElement("a");
+                nextPage.append(currentPage + 1);
+                nextPage.addEventListener("click", e => {
+                    e.preventDefault();
+                });
+                rows.append(nextPage);
+            }
+            
+
         }
     </script>
 </body>

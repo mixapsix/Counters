@@ -37,6 +37,7 @@ namespace Counters
             countersContext.Database.Migrate();
 
             app.UseStaticFiles();
+            app.UseDefaultFiles();
 
             app.UseRouting();
 

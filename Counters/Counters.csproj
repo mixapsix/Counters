@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\_Master.css" />
+    <None Include="wwwroot\IndexAJAX.html" />
   </ItemGroup>
 
   <ItemGroup>
