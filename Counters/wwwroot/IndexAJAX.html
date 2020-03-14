@@ -80,44 +80,50 @@
             var div = document.createElement("div");
             div.setAttribute("class", "page");
 
+            var ul = document.createElement("ul");
+            ul.setAttribute("class", "pagination");
+            div.appendChild(ul);
+
             if (counters.currentPage > 1) {
-                const prevPage = document.createElement("a");
-                prevPage.setAttribute("class", "page-link");
-                prevPage.append(counters.currentPage - 1);
-                prevPage.addEventListener("click", e => {
+                var data = GetStyle(counters.currentPage - 1, false);
+                data.addEventListener("click", e => {
                     e.preventDefault();
                     GetDataPost(counters.currentPage - 1);
                 });
-                rows.append("ul").setAttribute("class", "pagination").appendChild(list);
+                ul.appendChild(data);
+                rows.append(div);
             }
-
-            const current = document.createElement("a");
-            current.setAttribute("class", "page-link");
-            current.append(counters.currentPage);
-            var ul = document.createElement("ul");
-            ul.setAttribute("class", "pagination");
-            var li = document.createElement("li");
-            li.setAttribute("class", "page-item active");
-            li.appendChild(current);
-            ul.appendChild(li);
-            current.addEventListener("click", e => {
+            var data = GetStyle(counters.currentPage, true);
+            data.addEventListener("click", e => {
                 e.preventDefault();
                 GetDataPost(counters.currentPage);
             });
-            div.appendChild(ul);
+            ul.appendChild(data);
             rows.append(div);
 
             if (counters.totalPages > counters.currentPage) {
-                const nextPage = document.createElement("a");
-                nextPage.setAttribute("class", "page-link");
-                nextPage.append(counters.currentPage + 1);
-                nextPage.addEventListener("click", e => {
+                var data = GetStyle(counters.currentPage + 1, false);
+                data.addEventListener("click", e => {
                     e.preventDefault();
                     GetDataPost(counters.currentPage + 1);
                 });
-                rows.append(nextPage);
-            }
-            
+                ul.appendChild(data);
+                rows.append(div);
+            }          
+        }
+
+        function GetStyle(page, active)
+        {
+            var li = document.createElement("li");
+            if (active === true)
+                li.setAttribute("class", "page-item active");
+            else
+                li.setAttribute("class", "page-item");
+            var current = document.createElement("a");
+            current.setAttribute("class", "page-link");
+            current.append(page);
+            li.appendChild(current);
+            return li;
         }
     </script>
 </body>
