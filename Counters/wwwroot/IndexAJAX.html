@@ -12,19 +12,17 @@
         <thead><tr><th>ID</th><th>Number</th><th>Value</th></tr></thead>
         <tbody></tbody>
     </table>
-    <div id="pagination">
-
+    <div id="page">
+        
     </div>
 
 
     <script>
-        var countOfRecords; 
-        var currentPage = 1;
 
-        GetUsers();
+        GetCounters();
 
-        async function GetUsers() {
-            const responce = await fetch("/Home/IndexAJAX/", {
+        async function GetCounters() {
+            const responce = await fetch("/Home/IndexAJAX", {
                 method: "GET",
                 headers: { "Accept": "application/json" },
             });
@@ -32,11 +30,10 @@
             if (responce.ok === true) {
                 const counters = await responce.json();
                 let rows = document.querySelector("tbody");
-                countOfRecords = counters.length;
-                counters.forEach(counter => {
+                counters.data.forEach(counter => {
                     rows.append(row(counter));
                 });
-                GetPages();
+                GetPages(counters);
             }
         }
 
@@ -59,36 +56,68 @@
             return tr;
         }
 
-        function GetPages() {
+        async function GetDataPost(pageToMove) {
+            const responce = await fetch("/Home/IndexAJAX?page=" + pageToMove, {
+                method: "GET",
+                headers: { "Accept": "application/json" },
+            });
+            if (responce.ok === true) {
+                const counters = await responce.json();
+                let rows = document.querySelector("tbody");
+                rows.innerHTML = "";
+                counters.data.forEach(counter => {
+                    rows.append(row(counter));
+                });
+                GetPages(counters);
+            }
+        }
 
-            let rows = document.getElementById("pagination");
+        function GetPages(counters) {
 
-            if (currentPage > 1) {
+            let rows = document.getElementById("page");
+            rows.innerHTML = "";
+
+            var div = document.createElement("div");
+            div.setAttribute("class", "page");
+
+            if (counters.currentPage > 1) {
                 const prevPage = document.createElement("a");
-                prevPage.append(currentPage - 1);
+                prevPage.setAttribute("class", "page-link");
+                prevPage.append(counters.currentPage - 1);
                 prevPage.addEventListener("click", e => {
                     e.preventDefault();
+                    GetDataPost(counters.currentPage - 1);
                 });
-                rows.append(prevPage);
+                rows.append("ul").setAttribute("class", "pagination").appendChild(list);
             }
 
             const current = document.createElement("a");
-            current.append(currentPage);
+            current.setAttribute("class", "page-link");
+            current.append(counters.currentPage);
+            var ul = document.createElement("ul");
+            ul.setAttribute("class", "pagination");
+            var li = document.createElement("li");
+            li.setAttribute("class", "page-item active");
+            li.appendChild(current);
+            ul.appendChild(li);
             current.addEventListener("click", e => {
                 e.preventDefault();
+                GetDataPost(counters.currentPage);
             });
-            rows.append(current);
+            div.appendChild(ul);
+            rows.append(div);
 
-            if (countOfRecords / 10 > currentPage) {
+            if (counters.totalPages > counters.currentPage) {
                 const nextPage = document.createElement("a");
-                nextPage.append(currentPage + 1);
+                nextPage.setAttribute("class", "page-link");
+                nextPage.append(counters.currentPage + 1);
                 nextPage.addEventListener("click", e => {
                     e.preventDefault();
+                    GetDataPost(counters.currentPage + 1);
                 });
                 rows.append(nextPage);
             }
             
-
         }
     </script>
 </body>

@@ -73,11 +73,18 @@ namespace Counters.Controllers
         {
             return View(baseService.GetData().ToList());
         }
-        [HttpGet]      
-        public async Task<ActionResult<IEnumerable<Counter>>> IndexAJAXAsync(int page)
+
+        [HttpGet]             
+        public async Task<AjaxPageNavigation> IndexAJAXAsync(int page = 1)
         {
-            return await baseService.GetCounters().ToListAsync();
-        }
+            int count = await baseService.GetCounters().CountAsync();
+            int records = 10;
+            List<Counter> data = await baseService.GetCounters().Skip(10 * (page - 1)).Take(10).ToListAsync();
+            return new AjaxPageNavigation(count, records, page)
+            {
+                Data = data
+            };
+        }     
 
     }
 }
