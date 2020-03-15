@@ -7,16 +7,22 @@
     <title>Список всех позиций</title>
 </head>
 <body>
+    <div class="toolbox">
+        <ul>
+            <li><a href="/Home/Index/">Главная страница</a></li>
+            <li><a href="/Home/Data/">Страница с выборкой</a></li>
+            <li><a href="/Home/Add/">Страница добавления строк</a></li>
+            <li><a href="/IndexAJAX.html">Страница c AJAX запросами</a></li>
+            <li><a href="/Counters/Index">Главная страница на RazorPages</a></li>
+            <li><a href="/Counters/Add">Страница добавления строк на RazorPages</a></li>
+        </ul>
+    </div>
     <h2>Список всех значений</h2>
     <table>
         <thead><tr><th>ID</th><th>Number</th><th>Value</th></tr></thead>
         <tbody></tbody>
     </table>
-    <div id="page">
-        
-    </div>
-
-
+    <div id="page"></div>
     <script>
 
         GetCounters();
@@ -42,7 +48,7 @@
             tr.setAttribute("data-rowid", counter.id);
 
             const idTd = document.createElement("td");
-            idTd.append(counter.id+8);
+            idTd.append(counter.id + 8);
             tr.append(idTd);
 
             const numberTd = document.createElement("td");
@@ -56,7 +62,7 @@
             return tr;
         }
 
-        async function GetDataPost(pageToMove) {
+        async function ChangePage(pageToMove) {
             const responce = await fetch("/Home/IndexAJAX?page=" + pageToMove, {
                 method: "GET",
                 headers: { "Accept": "application/json" },
@@ -88,7 +94,7 @@
                 var data = GetStyle(counters.currentPage - 1, false);
                 data.addEventListener("click", e => {
                     e.preventDefault();
-                    GetDataPost(counters.currentPage - 1);
+                    ChangePage(counters.currentPage - 1);
                 });
                 ul.appendChild(data);
                 rows.append(div);
@@ -96,7 +102,7 @@
             var data = GetStyle(counters.currentPage, true);
             data.addEventListener("click", e => {
                 e.preventDefault();
-                GetDataPost(counters.currentPage);
+                ChangePage(counters.currentPage);
             });
             ul.appendChild(data);
             rows.append(div);
@@ -105,15 +111,14 @@
                 var data = GetStyle(counters.currentPage + 1, false);
                 data.addEventListener("click", e => {
                     e.preventDefault();
-                    GetDataPost(counters.currentPage + 1);
+                    ChangePage(counters.currentPage + 1);
                 });
                 ul.appendChild(data);
                 rows.append(div);
-            }          
+            }
         }
 
-        function GetStyle(page, active)
-        {
+        function GetStyle(page, active) {
             var li = document.createElement("li");
             if (active === true)
                 li.setAttribute("class", "page-item active");
