@@ -1,25 +1,133 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css" />
+    <script src="jquery/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <title>Страница Bootstrap</title>
 </head>
 <body>
-    <div class="navbar navbar-default">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="">Counters</a>
+        </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="Home/Index/">Главная страница</a></li>
-                <li><a href="Home/Data/">Страница с выборкой</a></li>
-                <li><a href="Home/Add/">Страница добавления строк</a></li>
-                <li><a href="IndexAJAX.html">Страница c AJAX запросами</a></li>
-                <li><a href="IndexBootstrap.html">Главная страница Bootstrap</a></li>
-                <li><a href="Counters/Index">Главная страница на RazorPages</a></li>
-                <li><a href="Counters/Add">Страница добавления строк на RazorPages</a></li>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarViewDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        RazorView
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarViewDropdown">
+                        <a class="dropdown-item" href="Home/Index/">Главная страница</a>
+                        <a class="dropdown-item" href="Home/Data/">Страница с выборкой</a>
+                        <a class="dropdown-item" href="Home/Add/">Страница добавления строк</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarPagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        RazorView
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarPagesDropdown">
+                        <a class="dropdown-item" href="Counters/Index">Главная страница</a>
+                        <a class="dropdown-item" href="Counters/Add">Страница добавления строк</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="IndexAJAX.html">Страница c AJAX запросами</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="IndexBootstrap.html">Главная страница Bootstrap</a>
+                </li>
             </ul>
         </div>
-    </div>
+    </nav>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NUMBER</th>
+                <th scope="col">VALUE</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <nav id="pagination" daria-label="Pagination">
 
+    </nav>
+    <script>
+
+        GetData();
+
+        async function GetData(page = 1) {
+            const responce = await fetch("/Home/IndexAJAX/?page="+page, {
+                method: "GET",
+                headers: { "Accept": "application/json" },
+            });
+            if (responce.ok === true) {
+                const counters = await responce.json();
+
+                let rows = document.querySelector("tbody");
+                rows.innerHTML = "";
+                counters.data.forEach(counter => {
+                    rows.append(Row(counter))
+                });
+                GetPages(counters);
+            }
+
+            function GetPages(counters) {
+                const area = document.getElementById("pagination");
+                area.innerHTML = "";
+
+                const ul = document.createElement("ul");
+
+                ul.setAttribute("class", "pagination");
+                if (counters.currentPage > 1) {
+                    ul.appendChild(GetStyle(false, counters.currentPage-1));
+                }
+
+                ul.appendChild(GetStyle(true, counters.currentPage));
+
+                if (counters.currentPage < counters.totalPages) {
+                    ul.appendChild(GetStyle(false, counters.currentPage + 1));
+                }
+
+                area.appendChild(ul);
+            }
+            function GetStyle(active, page) {
+                let li = document.createElement("li");
+                if (active === false) li.setAttribute("class", "page-item");
+                else li.setAttribute("class", "page-item active");
+                let a = document.createElement("a");
+                a.setAttribute("class", "page-link ");
+                a.addEventListener("click", e => {
+                    e.preventDefault();
+                    GetData(page)
+                });
+                a.textContent = page;
+                li.appendChild(a);
+                return li;
+            }
+            function Row(counter) {
+                const tr = document.createElement("tr");
+
+                const thID = document.createElement("th");
+                thID.textContent = counter.id + 8;
+                tr.appendChild(thID);
+
+                const tdNumber = document.createElement("td");
+                tdNumber.textContent = counter.number;
+                tr.appendChild(tdNumber);
+
+                const tdValue = document.createElement("td");
+                tdValue.textContent = counter.value;
+                tr.appendChild(tdValue);
+
+                return tr;
+            }
+        }
+    </script>
 </body>
 </html>
