@@ -1,0 +1,47 @@
+﻿<!doctype html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bootstrap-table/dist/bootstrap-table.min.css"/>
+    <script src="jquery/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="bootstrap-table/dist/bootstrap-table-vue.min.js"></script>
+    <title>Страница Bootstrap-table</title>
+    </head>
+
+    <body>
+        <table id="table">
+
+        </table>
+
+        <script>
+            TakeData();
+            async function TakeData()
+            {
+                var responce = await fetch("/Home/IndexAJAX/?page=1", {
+                    method: "GET",
+                    headers: { "Accept": "application/json" },
+                });
+                var counters = await responce.json();
+                $('#table').bootstrapTable({
+                    url: counters.data,
+                    pagination: true,
+                    column: [{
+                        field: 'id',
+                        title: 'ID'
+                    }, {
+                        field: 'number',
+                        title: 'Number'
+                    }, {
+                        field: 'value',
+                        title: 'Value'
+                    }]
+                });
+            }
+         
+        </script>
+    </body>
+</html>

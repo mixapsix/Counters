@@ -40,6 +40,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="IndexBootstrap.html">Главная страница Bootstrap</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="IndexBootstrapTable.html">Главная страница Bootstrap-table</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -62,7 +65,7 @@
         GetData();
 
         async function GetData(page = 1) {
-            const responce = await fetch("/Home/IndexAJAX/?page="+page, {
+            const responce = await fetch("/Home/IndexAJAX/?page=" + page, {
                 method: "GET",
                 headers: { "Accept": "application/json" },
             });
@@ -76,6 +79,7 @@
                 });
                 GetPages(counters);
             }
+        }
 
             function GetPages(counters) {
                 const area = document.getElementById("pagination");
@@ -127,7 +131,7 @@
 
                 return tr;
             }
-        }
+        
     </script>
 </body>
 </html>
