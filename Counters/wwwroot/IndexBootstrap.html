@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css" />
-    <script src="jquery/jquery.min.js"></script>
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/popper/umd/popper.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <title>Страница Bootstrap</title>
 </head>
 <body>
@@ -15,6 +16,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="navbar-nav mr-auto">
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarViewDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         RazorView
@@ -25,23 +27,29 @@
                         <a class="dropdown-item" href="Home/Add/">Страница добавления строк</a>
                     </div>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="" id="navbarPagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        RazorView
+                        RazorPages
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarPagesDropdown">
                         <a class="dropdown-item" href="Counters/Index">Главная страница</a>
                         <a class="dropdown-item" href="Counters/Add">Страница добавления строк</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="IndexAJAX.html">Страница c AJAX запросами</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarPagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        BootstrapPages
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarPagesDropdown">
+                        <a class="nav-link" href="IndexBootstrap.html">Главная страница Bootstrap</a>
+                        <a class="nav-link" href="IndexBootstrapTable.html">Главная страница Bootstrap-table</a>
+                    </div>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="IndexBootstrap.html">Главная страница Bootstrap</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="IndexBootstrapTable.html">Главная страница Bootstrap-table</a>
+                    <a class="nav-link" href="IndexAJAX.html">Главная страница c AJAX запросами</a>
                 </li>
             </ul>
         </div>

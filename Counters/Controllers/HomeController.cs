@@ -18,13 +18,13 @@ namespace Counters.Controllers
         }
         public async Task<IActionResult> Index(int? selectID, int? selectNumber, int? selectValue, SortState sortOrder = SortState.IDAsc, int page = 1)
         {
-            
+
             var data = baseService.GetCounters();
             int pageSize = 5;
 
-            if(selectID!=null)
+            if (selectID != null)
             {
-                data = data.Where(k => k.ID + 8 == selectID).Select(k=>k);
+                data = data.Where(k => k.ID + 8 == selectID).Select(k => k);
             }
             if (selectNumber != null)
             {
@@ -34,16 +34,16 @@ namespace Counters.Controllers
             {
                 data = data.Where(k => k.Value == selectValue).Select(k => k);
             }
-                data = sortOrder switch
-                {
-                    SortState.IDDesc => data.OrderByDescending(x => x.ID),
-                    SortState.NumberAsc => data.OrderBy(x => x.Number),
-                    SortState.NumberDesc => data.OrderByDescending(x => x.Number),
-                    SortState.ValueAsc => data.OrderBy(x => x.Value),
-                    SortState.ValueDesc => data.OrderByDescending(x => x.Value),
-                    _ => data.OrderBy(x => x.ID),
-                };
-  
+            data = sortOrder switch
+            {
+                SortState.IDDesc => data.OrderByDescending(x => x.ID),
+                SortState.NumberAsc => data.OrderBy(x => x.Number),
+                SortState.NumberDesc => data.OrderByDescending(x => x.Number),
+                SortState.ValueAsc => data.OrderBy(x => x.Value),
+                SortState.ValueDesc => data.OrderByDescending(x => x.Value),
+                _ => data.OrderBy(x => x.ID),
+            };
+
             var count = await data.CountAsync();
             var items = await data.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -65,7 +65,7 @@ namespace Counters.Controllers
 
         [HttpPost]
         public IActionResult Add(Counter counter)
-        {            
+        {
             baseService.InsertDataAsync(counter);
             return RedirectToAction("Index");
         }
@@ -74,17 +74,48 @@ namespace Counters.Controllers
             return View(baseService.GetData().ToList());
         }
 
-        [HttpGet]             
-        public async Task<AjaxPageNavigation> IndexAJAXAsync(int page = 1)
+        [HttpGet]
+        public async Task<JsonResult> IndexAJAXAsync(int page = 1, int recordCount = 10,string sortOrder = "idasc")
         {
-            int count = await baseService.GetCounters().CountAsync();
-            int records = 5;
-            List<Counter> data = await baseService.GetCounters().Skip(records * (page - 1)).Take(records).ToListAsync();
-            return new AjaxPageNavigation(count, records, page)
+            var data = baseService.GetCounters();
+            
+            switch(sortOrder)
             {
-                Data = data
-            };
+                case "iddesc":
+                    {
+                        data = data.OrderByDescending(x => x.ID);
+                        break;
+                    }
+                case "numberasc":
+                    {
+                        data = data.OrderBy(x => x.Number);
+                        break;
+                    }
+                case "numberdesc":
+                    {
+                        data = data.OrderByDescending(x => x.Number);
+                        break;
+                    }
+                case "valueasc":
+                    {
+                        data = data.OrderBy(x => x.Value);
+                        break;
+                    }
+                case "valuedesc":
+                    {
+                        data = data.OrderByDescending(x => x.Value);
+                        break;
+                    }
+                default:
+                    {
+                        data = data.OrderBy(x => x.ID);
+                        break;
+                    }
+            }
+           // int count = await baseService.GetCounters().CountAsync();
+            var result = await data.Skip((page - 1) * recordCount).Take(recordCount).ToListAsync();
+            result.ForEach(x => x.ID = x.ID + 8);
+            return Json(result); 
         }     
-
     }
 }

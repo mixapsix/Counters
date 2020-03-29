@@ -1,36 +1,99 @@
 ﻿<!doctype html>
 <html>
-    <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="bootstrap-table/dist/bootstrap-table.min.css"/>
-    <script src="jquery/jquery.min.js"></script>
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css"/>
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/popper/umd/popper.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="lib/bootstrap-table/dist/bootstrap-table-vue.min.js"></script>
     <title>Страница Bootstrap-table</title>
-    </head>
+</head>
 
     <body>
-        <table id="table"></table>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="">Counters</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav mr-auto">
 
-        <script>
-            $('#table').bootstrapTable({
-            method: "get",
-            url: '/Home/IndexAJAX/',
-            column: [
-            {
-                field: 'id',
-                title: 'id'
-            }, {
-                field: 'number',
-                title: 'number'
-            }, {
-                field: 'value',
-                title: 'value'
-                }
-            ]
-        });       
-        </script>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="" id="navbarViewDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            RazorView
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarViewDropdown">
+                            <a class="dropdown-item" href="Home/Index/">Главная страница</a>
+                            <a class="dropdown-item" href="Home/Data/">Страница с выборкой</a>
+                            <a class="dropdown-item" href="Home/Add/">Страница добавления строк</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="" id="navbarPagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            RazorPages
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarPagesDropdown">
+                            <a class="dropdown-item" href="Counters/Index">Главная страница</a>
+                            <a class="dropdown-item" href="Counters/Add">Страница добавления строк</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="" id="navbarPagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            BootstrapPages
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarPagesDropdown">
+                            <a class="nav-link" href="IndexBootstrap.html">Главная страница Bootstrap</a>
+                            <a class="nav-link" href="IndexBootstrapTable.html">Главная страница Bootstrap-table</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="IndexAJAX.html">Главная страница c AJAX запросами</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+            <table id="table" data-show-pagination-switch="true"></table>
+            <script>
+                $('#table').bootstrapTable({   
+                    url: '/Home/IndexAJAX/',
+                    pagination: true,
+                    sidePagination: 'server',
+                    sortable: true,
+                    sortName: "id",
+                    order: "asc",
+                    pageNumber: 1, 
+                    pageSize: 10,
+                    showColumns: true,
+                    queryParams: function (params) {
+                        var temp = {   
+                            recordCount: params.limit,                         
+                            page: (params.offset / params.limit) + 1,
+                            sortOrder: params.sort + params.order
+                        };
+                        return temp;
+                    },
+                    columns: [
+                        {
+                            field: 'id',
+                            title: 'ID',
+                            sortable: true
+                        }, {
+                            field: 'number',
+                            title: 'Number',
+                            sortable: true
+                        }, {
+                            field: 'value',
+                            title: 'Value',
+                            sortable: true
+                        }
+                    ]
+                });
+            </script>
     </body>
 </html>
