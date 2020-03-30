@@ -64,16 +64,19 @@
                     url: '/Home/IndexAJAX/',
                     pagination: true,
                     sidePagination: 'server',
+                    pageList: [10, 25, 50, 100],
                     sortable: true,
                     sortName: "id",
                     order: "asc",
-                    pageNumber: 1, 
                     pageSize: 10,
+                    pageNumber: 1,
+                    totalField: "count",
+                    dataField: "data",
                     showColumns: true,
                     queryParams: function (params) {
                         var temp = {   
                             recordCount: params.limit,                         
-                            page: (params.offset / params.limit) + 1,
+                            page: (params.offset / params.limit),
                             sortOrder: params.sort + params.order
                         };
                         return temp;

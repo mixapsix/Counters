@@ -72,7 +72,7 @@
 
         GetData();
 
-        async function GetData(page = 1) {
+        async function GetData(page = 0) {
             const responce = await fetch("/Home/IndexAJAX/?page=" + page, {
                 method: "GET",
                 headers: { "Accept": "application/json" },
@@ -96,7 +96,7 @@
                 const ul = document.createElement("ul");
 
                 ul.setAttribute("class", "pagination");
-                if (counters.currentPage > 1) {
+                if (counters.currentPage > 0) {
                     ul.appendChild(GetStyle(false, counters.currentPage-1));
                 }
 
@@ -126,7 +126,7 @@
                 const tr = document.createElement("tr");
 
                 const thID = document.createElement("th");
-                thID.textContent = counter.id + 8;
+                thID.textContent = counter.id;
                 tr.appendChild(thID);
 
                 const tdNumber = document.createElement("td");

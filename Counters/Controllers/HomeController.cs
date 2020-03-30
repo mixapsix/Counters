@@ -78,8 +78,8 @@ namespace Counters.Controllers
         public async Task<JsonResult> IndexAJAXAsync(int page = 1, int recordCount = 10,string sortOrder = "idasc")
         {
             var data = baseService.GetCounters();
-            
-            switch(sortOrder)
+            int count = await baseService.GetCounters().CountAsync();
+            switch (sortOrder)
             {
                 case "iddesc":
                     {
@@ -112,10 +112,13 @@ namespace Counters.Controllers
                         break;
                     }
             }
-           // int count = await baseService.GetCounters().CountAsync();
-            var result = await data.Skip((page - 1) * recordCount).Take(recordCount).ToListAsync();
+            var result = await data.Skip(page  * recordCount).Take(recordCount).ToListAsync();
             result.ForEach(x => x.ID = x.ID + 8);
-            return Json(result); 
+
+            return Json(new AjaxPageNavigation(count, recordCount, page)
+            {
+                Data = result
+            }) ; 
         }     
     }
 }
