@@ -75,7 +75,7 @@ namespace Counters.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> IndexAJAXAsync(int page = 1, int recordCount = 10,string sortOrder = "idasc")
+        public async Task<JsonResult> IndexAJAXAsync(int page = 0, int recordCount = 10,string sortOrder = "idasc")
         {
             var data = baseService.GetCounters();
             int count = await baseService.GetCounters().CountAsync();

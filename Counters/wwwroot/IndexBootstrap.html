@@ -102,7 +102,7 @@
 
                 ul.appendChild(GetStyle(true, counters.currentPage));
 
-                if (counters.currentPage < counters.totalPages) {
+                if (counters.currentPage < counters.totalPages - 1) {
                     ul.appendChild(GetStyle(false, counters.currentPage + 1));
                 }
 
@@ -118,7 +118,7 @@
                     e.preventDefault();
                     GetData(page)
                 });
-                a.textContent = page;
+                a.textContent = page + 1;
                 li.appendChild(a);
                 return li;
             }

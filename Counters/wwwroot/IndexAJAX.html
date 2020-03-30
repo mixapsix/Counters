@@ -92,7 +92,7 @@
             ul.setAttribute("class", "pagination");
             div.appendChild(ul);
 
-            if (counters.currentPage > 1) {
+            if (counters.currentPage > 0) {
                 var data = GetStyle(counters.currentPage - 1, false);
                 data.addEventListener("click", e => {
                     e.preventDefault();
@@ -109,7 +109,7 @@
             ul.appendChild(data);
             rows.append(div);
 
-            if (counters.totalPages > counters.currentPage) {
+            if (counters.totalPages - 1 > counters.currentPage) {
                 var data = GetStyle(counters.currentPage + 1, false);
                 data.addEventListener("click", e => {
                     e.preventDefault();
@@ -128,7 +128,7 @@
                 li.setAttribute("class", "page-item");
             var current = document.createElement("a");
             current.setAttribute("class", "page-link");
-            current.append(page);
+            current.append(page + 1);
             li.appendChild(current);
             return li;
         }
