@@ -118,7 +118,7 @@ namespace Counters.Controllers
             return Json(new AjaxPageNavigation(count, recordCount, page)
             {
                 Data = result
-            }) ; 
+            }); 
         }     
     }
 }

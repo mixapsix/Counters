@@ -15,7 +15,29 @@
         </div>
     </div>
     <script>
-
+            $(function () {
+                $("#gridContainer").dxDataGrid({
+                    showBorders: true,
+                    paging: {
+                        pageSize: 10
+                    },
+                    dataSource: '/Home/IndexAJAX/',
+                    columns: [
+                        {
+                            dataField: "id",
+                            dataType: "number"
+                        },
+                        {
+                            dataField: "number",
+                            dataType: "number"
+                        },
+                        {
+                            dataField: "value",
+                            dataType: "number"
+                        },
+                    ],                   
+                });
+            });
     </script>
 </body>
 </html>
