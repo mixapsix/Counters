@@ -28,16 +28,26 @@
                     [
                         "skip",
                         "take",
+                        "requireTotalCount",
+                        "requireGroupCount",
+                        "sort",
+                        "filter",
+                        "totalSummary",
+                        "group",
+                        "groupSummary"
                     ].forEach(function (i) {
+                        if (i in loadOptions && isNotEmpty(loadOptions[i]))
                         args[i] = JSON.stringify(loadOptions[i]);
                     });
                     $.ajax({
-                        url: '/Home/IndexAJAX/',
+                        url: "/Home/IndexDevExtreme",
                         dataType: "json",
                         data: args,
                         success: function (result) {
                             deferred.resolve(result.data, {
-                                totalCount: result.totalPages,
+                                totalCount: result.totalCount,
+                                summary: result.summary,
+                                groupCount: result.groupCount
                             });
                         },
                         error: function () {
@@ -48,31 +58,34 @@
                     return deferred.promise();
                 }
             });
-                $("#gridContainer").dxDataGrid({
-                    showBorders: true,
-                    paging: {
-                        pageSize: 10,
-                        pageIndex: 1    
+            $("#gridContainer").dxDataGrid({
+                dataSource: store,
+                showBorders: true,
+                remoteOperations: true,
+                paging: {
+                    pageSize: 12
+                },
+                pager: {
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [8, 12, 20]
+                },
+                columns: [
+                    {
+                        dataField: "id",
+                        dataType: "number"
                     },
-                    remoteOperations: true,
-                    dataSource: store,
-                    columns: [
-                        {
-                            dataField: "id",
-                            dataType: "number"
-                        },
-                        {
-                            dataField: "number",
-                            dataType: "number"
-                        },
-                        {
-                            dataField: "value",
-                            dataType: "number"
-                        },
-                    ],                   
-                });
-            });
-
+                    {
+                        dataField: "number",
+                        dataType: "number"
+                    },
+                    {
+                        dataField: "value",
+                        dataType: "number"
+                    },
+                ],                   
+            }).dxDataGrid("instance");;
+        });
+        
     </script>
 </body>
 </html>
