@@ -10,9 +10,7 @@
 </head>
 <body class="dx-viewport">
     <div class="demo-container">
-        <div id="gridContainer">
-
-        </div>
+        <div id="gridContainer"></div>
     </div>
     <script>
         $(function () {
@@ -21,10 +19,10 @@
             }
 
             var store = new DevExpress.data.CustomStore({
-                key: ["id", "value", "number"],
+                key: "id",
                 load: function (loadOptions) {
                     var deferred = $.Deferred(),
-                    args = {};
+                        args = {};
                     [
                         "skip",
                         "take",
@@ -37,7 +35,7 @@
                         "groupSummary"
                     ].forEach(function (i) {
                         if (i in loadOptions && isNotEmpty(loadOptions[i]))
-                        args[i] = JSON.stringify(loadOptions[i]);
+                            args[i] = JSON.stringify(loadOptions[i]);
                     });
                     $.ajax({
                         url: "/Home/IndexDevExtreme",
@@ -63,29 +61,38 @@
                 showBorders: true,
                 remoteOperations: true,
                 paging: {
-                    pageSize: 12
+                    pageSize: 10
+                },
+                grouping: {
+                    autoExpandAll: false,
+                },
+                groupPanel: {
+                    visible: true
                 },
                 pager: {
                     showPageSizeSelector: true,
-                    allowedPageSizes: [8, 12, 20]
+                    allowedPageSizes: [10, 20, 50]
                 },
+                rowAlternationEnabled: true,
                 columns: [
                     {
                         dataField: "id",
-                        dataType: "number"
+                        dataType: "number",
+                        caption: "ID",
                     },
                     {
                         dataField: "number",
-                        dataType: "number"
+                        dataType: "number",
+                        caption: "Number",
                     },
                     {
                         dataField: "value",
-                        dataType: "number"
-                    },
-                ],                   
-            }).dxDataGrid("instance");;
+                        dataType: "number",
+                        caption: "Value",
+                    }
+                ],
+            }).dxDataGrid("instance");
         });
-        
     </script>
 </body>
 </html>

@@ -13,6 +13,7 @@ namespace Counters
         public int ID { get; set; }
         public int Number { get; set; }
         public int Value { get; set; }
+
     }
     public enum SortState
     {

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Counters.Services;
 using Counters.Models;
 using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
 
 namespace Counters.Controllers
 {
@@ -114,7 +115,6 @@ namespace Counters.Controllers
                     }
             }
             var result = await data.Skip(page * recordCount).Take(recordCount).ToListAsync();
-            result.ForEach(x => x.ID = x.ID + 8);
 
             return Json(new AjaxPageNavigation(count, recordCount, page)
             {
@@ -122,10 +122,10 @@ namespace Counters.Controllers
             });
         }   
         [HttpGet("/Home/IndexDevExtreme")]
-        public IActionResult IndexDevExtreme(DataSourceLoadOptionsBase loadOptions)
+        public IActionResult IndexDevExtreme(DataSourceLoadOptions loadOptions)
         {
             var data = baseService.GetCounters();
-            var result = DataSourceLoader.Load(data, loadOptions);
+            var result = DataSourceLoader.Load(data,loadOptions);
             return Ok(result);
         }
     }

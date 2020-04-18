@@ -24,7 +24,7 @@ namespace Counters.Services
 
         public IQueryable<Counter> GetCounters()
         {
-            var selectedCounters = CountersContext.Counters.Select(p => p);
+            var selectedCounters = CountersContext.Counters.Select(p => new Counter() { ID = p.ID + 8, Number = p.Number, Value = p.Value});
             return selectedCounters;    
         }
 
