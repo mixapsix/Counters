@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Counters.Services;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Microsoft.Extensions.Logging;
 
 namespace Counters
 {
@@ -38,7 +39,10 @@ namespace Counters
 
             app.UseStaticFiles();
             app.UseDefaultFiles();
-
+            var loggerFactory = LoggerFactory.Create(builder => 
+            {
+                builder.AddDebug();
+            });
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

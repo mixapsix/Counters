@@ -8,20 +8,23 @@ using Counters.Services;
 using Counters.Models;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Counters.Controllers
 {
     public class HomeController : Controller
     {
-        IDataBase baseService;
-        public HomeController(IDataBase dataBaseService)
+        IDataBase _baseService;
+        ILogger<HomeController> _logger;
+        public HomeController(IDataBase dataBaseService, ILogger<HomeController> logger)
         {
-            baseService = dataBaseService;
+            _logger = logger;
+            _baseService = dataBaseService;
         }
         public async Task<IActionResult> Index(int? selectID, int? selectNumber, int? selectValue, SortState sortOrder = SortState.IDAsc, int page = 1)
         {
 
-            var data = baseService.GetCounters();
+            var data = _baseService.GetCounters();
             int pageSize = 5;
 
             if (selectID != null)
@@ -56,31 +59,35 @@ namespace Counters.Controllers
                 PageViewModel = new PageViewModel(count, page, pageSize),
                 FilterViewModel = new FilterViewModel(selectID, selectNumber, selectValue)
             };
+            _logger.LogInformation("RazorViewIndex page request");
             return View(viewModel);
         }
 
         [HttpGet]
         public IActionResult Add()
         {
+            _logger.LogInformation("RazorViewAdd page request");
             return View();
         }
 
         [HttpPost]
         public IActionResult Add(Counter counter)
         {
-            baseService.InsertDataAsync(counter);
+            _baseService.InsertDataAsync(counter);
+            _logger.LogInformation("Record added");
             return RedirectToAction("Index");
         }
         public IActionResult Data()
         {
-            return View(baseService.GetData().ToList());
+            _logger.LogInformation("Table page request");
+            return View(_baseService.GetData().ToList());
         }
 
         [HttpGet]
         public async Task<JsonResult> IndexAJAXAsync(int page = 0, int recordCount = 10, string sortOrder = "idasc")
         {
-            var data = baseService.GetCounters();
-            int count = await baseService.GetCounters().CountAsync();
+            var data = _baseService.GetCounters();
+            int count = await _baseService.GetCounters().CountAsync();
             switch (sortOrder)
             {
                 case "iddesc":
@@ -115,7 +122,7 @@ namespace Counters.Controllers
                     }
             }
             var result = await data.Skip(page * recordCount).Take(recordCount).ToListAsync();
-
+            _logger.LogInformation("Ajax page request");
             return Json(new AjaxPageNavigation(count, recordCount, page)
             {
                 Data = result
@@ -124,8 +131,9 @@ namespace Counters.Controllers
         [HttpGet("/Home/IndexDevExtreme")]
         public IActionResult IndexDevExtreme(DataSourceLoadOptions loadOptions)
         {
-            var data = baseService.GetCounters();
+            var data = _baseService.GetCounters();
             var result = DataSourceLoader.Load(data,loadOptions);
+            _logger.LogInformation("DevExpress page request");
             return Ok(result);
         }
     }

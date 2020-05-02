@@ -10,10 +10,33 @@
 </head>
 <body class="dx-viewport">
     <div class="demo-container">
+        <div class="form">
+            <div>
+                <div class="label">Pages:</div>
+                <div id="menu"></div>
+            </div>
+        </div>
         <div id="gridContainer"></div>
     </div>
     <script>
         $(function () {
+            var pages = [{
+                id: "1",
+                name: "RazorView",
+                items:[{
+                    id: 1_1,
+                    name: "Index",
+                    url: "Home/Index/",
+                }]
+            }];
+            var dxMenu = $("#menu").dxMenu({
+                dataSource: pages,
+                displayExpr: "name",              
+                onItemsClick: function(data){
+                    $(location).attr('href', "Home/Index/")
+                }
+            }).dxMenu("instance");
+
             function isNotEmpty(value) {
                 return value !== undefined && value !== null && value !== "";
             }
