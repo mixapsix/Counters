@@ -21,19 +21,48 @@
     <script>
         $(function () {
             var pages = [{
-                id: "1",
-                name: "RazorView",
-                items:[{
-                    id: 1_1,
-                    name: "Index",
+                    id: "1",
+                    name: "Главная страница",
                     url: "Home/Index/",
-                }]
-            }];
+                }, {
+                    id: "2",
+                    name: "Страница с выборкой",
+                    url: "Home/Data/",
+                }, {
+                    id: "3",
+                    name: "Главная cтраница добавления строк",
+                    url: "Home/Add/",
+                }, {
+                    id: "4",
+                    name: "Главная страница Bootstrap",
+                    url: "IndexBootstrap.html",
+                }, {
+                    id: "5",
+                    name: "Главная страница Bootstrap-table",
+                    url: "IndexBootstrapTable.html",
+                }, {
+                    id: "6",
+                    name: "Главная страница на RazorPages",
+                    url: "Counters/Index",
+                }, {
+                    id: "7",
+                    name: "Страница добавления строк на RazorPages",
+                    url: "Counters/Add",
+                }, {
+                    id: "8",
+                    name: "Главная страница c AJAX запросами",
+                    url: "IndexAJAX.html",
+                }, {
+                    id: "9",
+                    name: "Главная страница на DevExtreme",
+                    url: "IndexDevExtreme.html",
+                }];
             var dxMenu = $("#menu").dxMenu({
-                dataSource: pages,
+                items: pages,
+                wordWrap: "breakWord",
                 displayExpr: "name",              
-                onItemsClick: function(data){
-                    $(location).attr('href', "Home/Index/")
+                onItemClick: function(data){
+                    $(location).attr('href', data.itemData.url);
                 }
             }).dxMenu("instance");
 
