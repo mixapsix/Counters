@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
 namespace Counters
@@ -20,7 +19,15 @@ namespace Counters
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                Log.Information("Application starting up");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception)
+            {
+                Log.Fatal("Application failed to start correctly");
+            }           
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -8,18 +8,14 @@ using Counters.Services;
 using Counters.Models;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
-using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace Counters.Controllers
 {
     public class HomeController : Controller
     {
         IDataBase _baseService;
-        ILogger<HomeController> _logger;
-        public HomeController(IDataBase dataBaseService, ILogger<HomeController> logger)
+        public HomeController(IDataBase dataBaseService)
         {
-            _logger = logger;
             _baseService = dataBaseService;
         }
         public async Task<IActionResult> Index(int? selectID, int? selectNumber, int? selectValue, SortState sortOrder = SortState.IDAsc, int page = 1)
@@ -60,14 +56,12 @@ namespace Counters.Controllers
                 PageViewModel = new PageViewModel(count, page, pageSize),
                 FilterViewModel = new FilterViewModel(selectID, selectNumber, selectValue)
             };
-            _logger.LogInformation("RazorViewIndex page request");
             return View(viewModel);
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-            _logger.LogInformation("RazorViewAdd page request");
             return View();
         }
 
@@ -75,12 +69,10 @@ namespace Counters.Controllers
         public IActionResult Add(Counter counter)
         {
             _baseService.InsertDataAsync(counter);
-            _logger.LogInformation("Record added");
             return RedirectToAction("Index");
         }
         public IActionResult Data()
         {
-            _logger.LogInformation("Table page request");
             return View(_baseService.GetData().ToList());
         }
 
@@ -123,7 +115,6 @@ namespace Counters.Controllers
                     }
             }
             var result = await data.Skip(page * recordCount).Take(recordCount).ToListAsync();
-            _logger.LogInformation("Ajax page request");
             return Json(new AjaxPageNavigation(count, recordCount, page)
             {
                 Data = result
@@ -134,7 +125,6 @@ namespace Counters.Controllers
         {
             var data = _baseService.GetCounters();
             var result = DataSourceLoader.Load(data,loadOptions);
-            _logger.LogInformation("DevExpress page request");
             return Ok(result);
         }
     }
