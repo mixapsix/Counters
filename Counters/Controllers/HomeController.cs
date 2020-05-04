@@ -9,6 +9,7 @@ using Counters.Models;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Counters.Controllers
 {
