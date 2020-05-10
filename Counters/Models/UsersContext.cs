@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Counters.Models
 {
-    public class UserContext:DbContext
+    public class UsersContext:DbContext
     {
         public DbSet<User> Users { get; set; }
-        public UserContext(DbContextOptions<UserContext> options)
+        public UsersContext(DbContextOptions<UsersContext> options)
             : base(options)
         {
            
@@ -17,7 +17,6 @@ namespace Counters.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             User user = new User() { Login = "admin", Password = "admin", ID = -1};
-
             modelBuilder.Entity<User>().HasData(user);
         }
 

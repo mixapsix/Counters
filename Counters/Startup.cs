@@ -33,7 +33,7 @@ namespace Counters
             services.AddMvc();
             services.AddTransient<IDataBase, DataBaseService>();
             services.AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
-            services.AddDbContext<UserContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
+            services.AddDbContext<UsersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => 
                 {
@@ -41,9 +41,10 @@ namespace Counters
                 });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase, CountersContext countersContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase, CountersContext countersContext, UsersContext userContext)
         {
             countersContext.Database.Migrate();
+            userContext.Database.Migrate();
 
             app.UseStaticFiles();
             app.UseDefaultFiles();

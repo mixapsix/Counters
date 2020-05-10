@@ -15,8 +15,8 @@ namespace Counters.Controllers
 {
     public class AccountController : Controller
     {
-        private UserContext _userContext;
-        public AccountController(UserContext userContext)
+        private UsersContext _userContext;
+        public AccountController(UsersContext userContext)
         {
             _userContext = userContext;
         }
