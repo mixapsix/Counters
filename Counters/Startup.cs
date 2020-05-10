@@ -10,10 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Counters.Services;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Serilog;
+using Counters.Models;
 
 namespace Counters
 {
@@ -31,6 +33,12 @@ namespace Counters
             services.AddMvc();
             services.AddTransient<IDataBase, DataBaseService>();
             services.AddDbContext<CountersContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
+            services.AddDbContext<UserContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("Connection")));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => 
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDataBase dataBase, CountersContext countersContext)
@@ -43,7 +51,8 @@ namespace Counters
             app.UseSerilogRequestLogging();
 
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

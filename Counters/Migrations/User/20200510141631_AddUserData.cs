@@ -1,45 +1,36 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace Counters.Migrations
+namespace Counters.Migrations.User
 {
-    public partial class AddData : Migration
+    public partial class AddUserData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Counters",
+                name: "Users",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Number = table.Column<int>(nullable: false),
-                    Value = table.Column<int>(nullable: false)
+                    Login = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Counters", x => x.ID);
+                    table.PrimaryKey("PK_Users", x => x.ID);
                 });
 
             migrationBuilder.InsertData(
-                table: "Counters",
-                columns: new[] { "ID", "Number", "Value" },
-                values: new object[,]
-                {
-                    { -7, 1, 1 },
-                    { -6, 1, 2 },
-                    { -5, 1, 3 },
-                    { -4, 2, 1 },
-                    { -3, 2, 1 },
-                    { -2, 2, 3 },
-                    { -1, 2, 1 }
-                });
+                table: "Users",
+                columns: new[] { "ID", "Login", "Password" },
+                values: new object[] { -1, "admin", "admin" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Counters");
+                name: "Users");
         }
     }
 }

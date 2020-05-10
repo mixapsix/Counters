@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+    @addTagHelper *, AuthoringTagHelpers
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="lib/bootstrap-table/dist/bootstrap-table.min.css" asp-append-version="true" />
+    <script src="lib/jquery/jquery.min.js" asp-append-version="true"></script>
+    <script src="lib/popper/umd/popper.min.js" asp-append-version="true"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="lib/bootstrap-table/dist/bootstrap-table.min.js" asp-append-version="true"></script>
+    <script src="lib/bootstrap-table/dist/bootstrap-table-vue.min.js" asp-append-version="true"></script>
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

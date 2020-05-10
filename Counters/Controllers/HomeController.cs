@@ -8,6 +8,7 @@ using Counters.Services;
 using Counters.Models;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Counters.Controllers
 {
@@ -18,6 +19,8 @@ namespace Counters.Controllers
         {
             _baseService = dataBaseService;
         }
+
+        [Authorize]
         public async Task<IActionResult> Index(int? selectID, int? selectNumber, int? selectValue, SortState sortOrder = SortState.IDAsc, int page = 1)
         {
 
@@ -59,12 +62,14 @@ namespace Counters.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Add(Counter counter)
         {
@@ -76,6 +81,7 @@ namespace Counters.Controllers
             return View(_baseService.GetData().ToList());
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<JsonResult> IndexAJAXAsync(int page = 0, int recordCount = 10, string sortOrder = "idasc")
         {
@@ -119,7 +125,9 @@ namespace Counters.Controllers
             {
                 Data = result
             });
-        }   
+        }
+
+        [Authorize]
         [HttpGet("/Home/IndexDevExtreme")]
         public IActionResult IndexDevExtreme(DataSourceLoadOptions loadOptions)
         {

@@ -9,15 +9,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Counters.Migrations
 {
     [DbContext(typeof(CountersContext))]
-    [Migration("20200206183534_AddData")]
-    partial class AddData
+    [Migration("20200510142049_AddDAta")]
+    partial class AddDAta
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.1")
+                .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Counters.Counter", b =>
