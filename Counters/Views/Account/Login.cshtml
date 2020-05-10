@@ -1,5 +1,9 @@
 ﻿@model Counters.ViewModels.LoginModel
 
+@{
+    Layout = "_LayoutLogin";
+}
+
 <h2>Вход на сайт</h2>
 
 <a asp-action="Register" asp-controller="Account">Регистрация</a>
@@ -8,12 +12,12 @@
     <div class="validation" asp-validation-summary="ModelOnly" />
     <div>
         <div class="form-group">
-            <label asp-for="Login">Введите Login</label>
+            <label asp-for="Login">Введите Логин</label>
             <input type="text" asp-for="Login" />
             <span asp-validation-for="Login" />
         </div>
         <div class="form-group">
-            <label asp-for="Password">Введите пароль</label>
+            <label asp-for="Password">Введите Пароль</label>
             <input asp-for="Password" />
             <span asp-validation-for="Password" />
         </div>
