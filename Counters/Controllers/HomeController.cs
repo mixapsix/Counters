@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Counters.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         IDataBase _baseService;
@@ -19,11 +20,8 @@ namespace Counters.Controllers
         {
             _baseService = dataBaseService;
         }
-
-        [Authorize]
         public async Task<IActionResult> Index(int? selectID, int? selectNumber, int? selectValue, SortState sortOrder = SortState.IDAsc, int page = 1)
         {
-
             var data = _baseService.GetCounters();
             int pageSize = 5;
 
@@ -62,14 +60,12 @@ namespace Counters.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult Add(Counter counter)
         {
@@ -81,7 +77,6 @@ namespace Counters.Controllers
             return View(_baseService.GetData().ToList());
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<JsonResult> IndexAJAXAsync(int page = 0, int recordCount = 10, string sortOrder = "idasc")
         {
@@ -127,7 +122,6 @@ namespace Counters.Controllers
             });
         }
 
-        [Authorize]
         [HttpGet("/Home/IndexDevExtreme")]
         public IActionResult IndexDevExtreme(DataSourceLoadOptions loadOptions)
         {

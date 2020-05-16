@@ -12,7 +12,7 @@ namespace Counters.ViewModels
         public string Login { get; set; }
 
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Не указан пароль")]
+        [Required(ErrorMessage = "Не указан Пароль")]
         public string Password { get; set; }
     }
 }

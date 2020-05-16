@@ -16,6 +16,8 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Serilog;
 using Counters.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Counters
 {
