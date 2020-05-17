@@ -10,6 +10,7 @@ using Counters.ViewModels;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using DevExtreme.AspNet.Mvc;
 
 namespace Counters.Controllers
 {
@@ -58,7 +59,7 @@ namespace Counters.Controllers
             if (ModelState.IsValid)
             {
                 User user = await _userContext.Users.FirstOrDefaultAsync(u => u.Login == model.Login);
-                if (user == null)
+                if (user == null && model.Password == model.ConfirmPassword)
                 {
                     _userContext.Users.Add(new User { Login = model.Login, Password = model.Password });
                     await _userContext.SaveChangesAsync();
